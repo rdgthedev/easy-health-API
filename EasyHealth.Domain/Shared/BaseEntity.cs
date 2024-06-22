@@ -1,4 +1,6 @@
-﻿namespace EasyHealth.Domain.Shared;
+﻿using EasyHealth.Domain.Entities;
+
+namespace EasyHealth.Domain.Shared;
 
 public abstract class BaseEntity
 {
@@ -7,5 +9,5 @@ public abstract class BaseEntity
         Id = Guid.NewGuid();
     }
     
-    public Guid Id { get; private set; }
+    public Guid Id { get; protected set; }
 }
