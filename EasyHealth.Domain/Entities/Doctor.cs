@@ -26,11 +26,11 @@ public class Doctor : BaseEntity
 
     public bool IsValid() => true;
 
-    public void ChangeSpecialty()
+    public void ChangeSpecialty(string specialty)
     {
     }
 
-    public void AddSpecialty()
+    public void AddSpecialty(string specialty)
     {
     }
 }
