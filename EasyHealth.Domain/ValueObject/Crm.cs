@@ -9,9 +9,9 @@ public class Crm : Shared.ValueObject
         int code,
         State state)
     {
-        InvalidCrmException.ThrowIfInvalid(code);
         Code = code;
         State = state;
+        InvalidCrmException.ThrowIfInvalid(Code);
     }
 
     public int Code { get; private set; }

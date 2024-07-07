@@ -17,9 +17,8 @@ public class Specialty : BaseEntity
     public string Title { get; private set; }
     public DateTime CreateDate { get; private set; }
     public DateTime LastUpdateDate { get; private set; }
-
-    public bool IsValid() => true;
-
+    public bool IsValid => !string.IsNullOrEmpty(Title.Trim());
+    
     public void ChangeTitle()
     {
         LastUpdateDate = DateTime.UtcNow;

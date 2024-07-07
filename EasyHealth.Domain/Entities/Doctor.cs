@@ -1,4 +1,5 @@
 ﻿using EasyHealth.Domain.Enums;
+using EasyHealth.Domain.Exceptions;
 using EasyHealth.Domain.Shared;
 using EasyHealth.Domain.ValueObject;
 
@@ -32,18 +33,25 @@ public class Doctor : BaseEntity
     public List<Specialty> Specialties { get; private set; } = [];
     public Crm Crm { get; private set; }
 
-    public bool IsValid() => Verify(this);
+    public bool IsValid() => Verify();
 
-    private static bool Verify(Doctor doctor) => true;
+    private static bool Verify() => true;
 
-    public void AddSpecialty(Specialty specialty)
+    public void AddSpecialty(Specialty specialtyEntity)
     {
-        Specialties.Add(specialty);
+        Specialty? specialty = null!;
+
+        if (specialtyEntity.IsValid)
+            specialty = Specialties.FirstOrDefault(x => x.Title == specialtyEntity.Title);
+        
+        if(specialty is null)
+            Specialties.Add(specialtyEntity);
+
+        throw new UnableToAddSpeciality();
     }
 
     public void RemoveSpecialty(Guid id)
     {
-        
     }
 
     public void UpdateCrm(Crm crm)

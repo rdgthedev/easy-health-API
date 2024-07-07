@@ -15,6 +15,7 @@ public class InvalidAddressException : Exception
         if (string.IsNullOrEmpty(address.Trim()))
             throw new InvalidAddressException(message);
     }
+
     public static void ThrowIfLessThan(
         int number,
         string message)
@@ -22,5 +23,4 @@ public class InvalidAddressException : Exception
         if (number <= 0)
             throw new InvalidAddressException(message);
     }
-    
 }
