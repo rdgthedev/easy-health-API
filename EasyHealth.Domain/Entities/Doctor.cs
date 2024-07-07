@@ -1,5 +1,6 @@
 ﻿using EasyHealth.Domain.Enums;
 using EasyHealth.Domain.Shared;
+using EasyHealth.Domain.ValueObject;
 
 namespace EasyHealth.Domain.Entities;
 
@@ -14,7 +15,7 @@ public class Doctor : BaseEntity
         DateTime birthDate,
         Gender gender,
         Specialty specialty,
-        string crm)
+        Crm crm)
     {
         Name = name;
         BirthDate = birthDate;
@@ -27,15 +28,19 @@ public class Doctor : BaseEntity
     public DateTime BirthDate { get; private set; }
     public Gender Gender { get; private set; }
     public List<Specialty> Specialty { get; private set; } = [];
-    public string Crm { get; private set; }
+    public Crm Crm { get; private set; }
 
-    public bool IsValid() => true;
+    public bool IsValid() => Verify(this);
 
-    public void ChangeSpecialty(string specialty)
-    {
-    }
+    private static bool Verify(Doctor doctor) => true;
 
     public void AddSpecialty(Specialty specialty)
     {
+        Specialty.Add(specialty);
+    }
+
+    public void UpdateCrm(Crm crm)
+    {
+        Crm = crm;
     }
 }
