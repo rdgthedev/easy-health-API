@@ -27,7 +27,9 @@ public class Doctor : BaseEntity
     public string Name { get; private set; }
     public DateTime BirthDate { get; private set; }
     public Gender Gender { get; private set; }
-    public List<Specialty> Specialty { get; private set; } = [];
+    public Address Address { get; set; }
+    public Email Email { get; set; }
+    public List<Specialty> Specialties { get; private set; } = [];
     public Crm Crm { get; private set; }
 
     public bool IsValid() => Verify(this);
@@ -36,7 +38,12 @@ public class Doctor : BaseEntity
 
     public void AddSpecialty(Specialty specialty)
     {
-        Specialty.Add(specialty);
+        Specialties.Add(specialty);
+    }
+
+    public void RemoveSpecialty(Guid id)
+    {
+        
     }
 
     public void UpdateCrm(Crm crm)
