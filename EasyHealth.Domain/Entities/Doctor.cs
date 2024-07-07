@@ -52,6 +52,12 @@ public class Doctor : BaseEntity
 
     public void RemoveSpecialty(Guid id)
     {
+        var specialty = Specialties.FirstOrDefault(x => x.Id == id);
+
+        if (specialty is null)
+            throw new SpecialtyNotFoundException();
+        
+        Specialties.Remove(specialty);
     }
 
     public void UpdateCrm(Crm crm)
