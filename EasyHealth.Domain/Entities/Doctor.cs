@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using EasyHealth.Domain.Enums;
+﻿using EasyHealth.Domain.Enums;
 using EasyHealth.Domain.Exceptions;
 using EasyHealth.Domain.Shared;
 using EasyHealth.Domain.ValueObject;
@@ -73,5 +72,15 @@ public class Doctor : BaseEntity
     public void UpdateCrm(Crm crm)
     {
         Crm = crm ?? throw new UnableToChangeCrm();
+    }
+
+    public void UpdateEmail(Email email)
+    {
+        Email = email ?? throw new UnableToChangeEmail();
+    }
+    
+    public void UpdateAddress(Address address)
+    {
+        Address = address ?? throw new UnableToChangeAddress();
     }
 }

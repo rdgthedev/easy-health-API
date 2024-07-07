@@ -2,7 +2,7 @@
 
 public class UnableToChangeCrm : Exception
 {
-    private const string _message = "Não foi possível adicionar uma especialidade!";
+    private const string _message = "Não foi possível alterar o CRM!";
 
     public UnableToChangeCrm(string message = _message) : base(message)
     {
