@@ -1,4 +1,5 @@
-﻿using EasyHealth.Domain.Enums;
+﻿using System.Runtime.CompilerServices;
+using EasyHealth.Domain.Enums;
 using EasyHealth.Domain.Exceptions;
 using EasyHealth.Domain.Shared;
 using EasyHealth.Domain.ValueObject;
@@ -33,9 +34,18 @@ public class Doctor : BaseEntity
     public List<Specialty> Specialties { get; private set; } = [];
     public Crm Crm { get; private set; }
 
-    public bool IsValid() => Verify();
+    public bool IsValid => Verify();
 
-    private static bool Verify() => true;
+    private bool Verify()
+    {
+        if (string.IsNullOrEmpty(Name))
+            return false;
+
+        if (Specialties.Count == 0)
+            return false;
+
+        return true;
+    }
 
     public void AddSpecialty(Specialty specialtyEntity)
     {
@@ -43,8 +53,8 @@ public class Doctor : BaseEntity
 
         if (specialtyEntity.IsValid)
             specialty = Specialties.FirstOrDefault(x => x.Title == specialtyEntity.Title);
-        
-        if(specialty is null)
+
+        if (specialty is null)
             Specialties.Add(specialtyEntity);
 
         throw new UnableToAddSpeciality();
@@ -56,7 +66,7 @@ public class Doctor : BaseEntity
 
         if (specialty is null)
             throw new SpecialtyNotFoundException();
-        
+
         Specialties.Remove(specialty);
     }
 
