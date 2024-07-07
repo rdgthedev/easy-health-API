@@ -5,24 +5,28 @@ namespace EasyHealth.Domain.Entities;
 
 public class Doctor : BaseEntity
 {
+    protected Doctor()
+    {
+    }
+
     public Doctor(
         string name,
-        int birthDate,
+        DateTime birthDate,
         Gender gender,
-        string specialty,
+        Specialty specialty,
         string crm)
     {
         Name = name;
         BirthDate = birthDate;
         Gender = gender;
-        Specialty = specialty;
+        AddSpecialty(specialty);
         Crm = crm;
     }
 
     public string Name { get; private set; }
-    public int BirthDate { get; private set; }
+    public DateTime BirthDate { get; private set; }
     public Gender Gender { get; private set; }
-    public string Specialty { get; private set; }
+    public List<Specialty> Specialty { get; private set; } = [];
     public string Crm { get; private set; }
 
     public bool IsValid() => true;
@@ -31,7 +35,7 @@ public class Doctor : BaseEntity
     {
     }
 
-    public void AddSpecialty(string specialty)
+    public void AddSpecialty(Specialty specialty)
     {
     }
 }
