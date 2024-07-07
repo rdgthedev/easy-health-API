@@ -72,6 +72,6 @@ public class Doctor : BaseEntity
 
     public void UpdateCrm(Crm crm)
     {
-        Crm = crm;
+        Crm = crm ?? throw new UnableToChangeCrm();
     }
 }
