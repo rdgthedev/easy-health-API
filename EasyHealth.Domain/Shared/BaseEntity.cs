@@ -1,6 +1,4 @@
-﻿using EasyHealth.Domain.Entities;
-
-namespace EasyHealth.Domain.Shared;
+﻿namespace EasyHealth.Domain.Shared;
 
 public abstract class BaseEntity
 {
