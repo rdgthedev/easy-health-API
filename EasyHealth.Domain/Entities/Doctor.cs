@@ -1,4 +1,5 @@
-﻿using EasyHealth.Domain.Shared;
+﻿using EasyHealth.Domain.Enums;
+using EasyHealth.Domain.Shared;
 
 namespace EasyHealth.Domain.Entities;
 
@@ -7,7 +8,7 @@ public class Doctor : BaseEntity
     public Doctor(
         string name,
         int birthDate,
-        string gender,
+        Gender gender,
         string specialty,
         string crm)
     {
@@ -20,7 +21,7 @@ public class Doctor : BaseEntity
 
     public string Name { get; private set; }
     public int BirthDate { get; private set; }
-    public string Gender { get; private set; }
+    public Gender Gender { get; private set; }
     public string Specialty { get; private set; }
     public string Crm { get; private set; }
 
