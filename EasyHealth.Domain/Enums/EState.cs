@@ -1,6 +1,6 @@
 ﻿namespace EasyHealth.Domain.Enums;
 
-public enum State
+public enum EState
 {
     
 }

@@ -14,29 +14,31 @@ public class Doctor : BaseEntity
     public Doctor(
         string name,
         DateTime birthDate,
-        Gender gender,
+        EGender eGender,
         Specialty specialty,
         Crm crm)
     {
         Name = name;
         BirthDate = birthDate;
-        Gender = gender;
+        EGender = eGender;
         Crm = crm;
+        Role = new Role(ERole.Doctor);
 
         AddSpecialty(specialty);
     }
 
     public string Name { get; private set; }
     public DateTime BirthDate { get; private set; }
-    public Gender Gender { get; private set; }
+    public EGender EGender { get; private set; }
     public Address Address { get; private set; }
     public Email Email { get; private set; }
+    public Role Role { get; set; }
     public List<Specialty> Specialties { get; private set; } = [];
     public Crm Crm { get; private set; }
 
-    public bool IsValid => Verify();
+    public bool IsValid => Validate();
 
-    private bool Verify()
+    private bool Validate()
     {
         if (string.IsNullOrEmpty(Name))
             return false;
@@ -71,17 +73,11 @@ public class Doctor : BaseEntity
     }
 
     public void UpdateCrm(Crm crm)
-    {
-        Crm = crm ?? throw new UnableToChangeCrm();
-    }
+        => Crm = crm ?? throw new UnableToChangeCrm();
 
     public void UpdateEmail(Email email)
-    {
-        Email = email ?? throw new UnableToChangeEmail();
-    }
-
+        => Email = email ?? throw new UnableToChangeEmail();
+    
     public void UpdateAddress(Address address)
-    {
-        Address = address ?? throw new UnableToChangeAddress();
-    }
+        => Address = address ?? throw new UnableToChangeAddress();
 }

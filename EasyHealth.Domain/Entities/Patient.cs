@@ -16,13 +16,14 @@ public class Patient : BaseEntity
         Email email,
         Address address,
         DateTime birthDate,
-        Gender gender)
+        EGender eGender)
     {
         Name = name;
         Email = email;
         Address = address;
         BirthDate = birthDate;
-        Gender = gender;
+        EGender = eGender;
+        Role = new Role(ERole.Patient);
     }
 
     public string Name { get; private set; }
@@ -30,7 +31,7 @@ public class Patient : BaseEntity
     public Address Address { get; private set; }
     public DateTime BirthDate { get; private set; }
     public Role Role { get; private set; }
-    public Gender Gender { get; private set; }
+    public EGender EGender { get; private set; }
 
     public bool IsValid() => Validate();
 
@@ -45,7 +46,7 @@ public class Patient : BaseEntity
         if (Address is null)
             return false;
 
-        if (string.IsNullOrEmpty(Gender.ToString()))
+        if (string.IsNullOrEmpty(EGender.ToString()))
             return false;
 
         return true;

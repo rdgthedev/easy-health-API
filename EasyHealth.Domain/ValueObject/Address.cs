@@ -10,7 +10,7 @@ public class Address : Shared.ValueObject
         string neighbordhood,
         int number,
         string city,
-        State state,
+        EState eState,
         string complement = null!)
     {
         Street = street;
@@ -18,7 +18,7 @@ public class Address : Shared.ValueObject
         Number = number;
         Complement = complement;
         City = city;
-        State = state;
+        EState = eState;
 
         InvalidAddressException.ThrowIfNull(Street, "A rua não pode ser vázia!");
         InvalidAddressException.ThrowIfNull(Neighbordhood, "O bairro não pode ser vázio!");
@@ -31,5 +31,5 @@ public class Address : Shared.ValueObject
     public int Number { get; private set; }
     public string Complement { get; private set; }
     public string City { get; private set; }
-    public State State { get; private set; }
+    public EState EState { get; private set; }
 }

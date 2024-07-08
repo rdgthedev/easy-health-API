@@ -1,11 +1,13 @@
-﻿namespace EasyHealth.Domain.Entities;
+﻿using EasyHealth.Domain.Enums;
+
+namespace EasyHealth.Domain.Entities;
 
 public class Role
 {
-    public Role(string name)
+    public Role(ERole name)
     {
         Name = name;
     }
 
-    public string Name { get; private set; }
+    public ERole Name { get; private set; }
 }

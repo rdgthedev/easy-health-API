@@ -1,6 +1,6 @@
 ﻿namespace EasyHealth.Domain.Enums;
 
-public enum Role
+public enum ERole
 {
     Employee = 1,
     Doctor = 2,
