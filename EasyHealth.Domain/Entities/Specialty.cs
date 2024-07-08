@@ -17,10 +17,13 @@ public class Specialty : BaseEntity
     public string Title { get; private set; }
     public DateTime CreateDate { get; private set; }
     public DateTime LastUpdateDate { get; private set; }
-    public bool IsValid => !string.IsNullOrEmpty(Title.Trim());
-    
-    public void ChangeTitle()
+    public bool IsValid => Validate();
+
+    private bool Validate() => !string.IsNullOrEmpty(Title.Trim());
+
+    public void UpdateTitle(string title)
     {
+        Title = title ?? throw new Exception();
         LastUpdateDate = DateTime.UtcNow;
     }
 }
