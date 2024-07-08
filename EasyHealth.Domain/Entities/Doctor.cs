@@ -21,15 +21,16 @@ public class Doctor : BaseEntity
         Name = name;
         BirthDate = birthDate;
         Gender = gender;
-        AddSpecialty(specialty);
         Crm = crm;
+
+        AddSpecialty(specialty);
     }
 
     public string Name { get; private set; }
     public DateTime BirthDate { get; private set; }
     public Gender Gender { get; private set; }
-    public Address Address { get; set; }
-    public Email Email { get; set; }
+    public Address Address { get; private set; }
+    public Email Email { get; private set; }
     public List<Specialty> Specialties { get; private set; } = [];
     public Crm Crm { get; private set; }
 
@@ -78,7 +79,7 @@ public class Doctor : BaseEntity
     {
         Email = email ?? throw new UnableToChangeEmail();
     }
-    
+
     public void UpdateAddress(Address address)
     {
         Address = address ?? throw new UnableToChangeAddress();
