@@ -16,13 +16,13 @@ public class Patient : BaseEntity
         Email email,
         Address address,
         DateTime birthDate,
-        EGender eGender)
+        EGender gender)
     {
         Name = name;
         Email = email;
         Address = address;
         BirthDate = birthDate;
-        EGender = eGender;
+        EGender = gender;
         Role = new Role(ERole.Patient);
     }
 
@@ -33,7 +33,7 @@ public class Patient : BaseEntity
     public Role Role { get; private set; }
     public EGender EGender { get; private set; }
 
-    public bool IsValid() => Validate();
+    public bool IsValid => Validate();
 
     private bool Validate()
     {

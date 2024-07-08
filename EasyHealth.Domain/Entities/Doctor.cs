@@ -14,13 +14,13 @@ public class Doctor : BaseEntity
     public Doctor(
         string name,
         DateTime birthDate,
-        EGender eGender,
+        EGender gender,
         Specialty specialty,
         Crm crm)
     {
         Name = name;
         BirthDate = birthDate;
-        EGender = eGender;
+        EGender = gender;
         Crm = crm;
         Role = new Role(ERole.Doctor);
 
