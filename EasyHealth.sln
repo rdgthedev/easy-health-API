@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyHealth.Infrastructure",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyHealth.Tests", "EasyHealth.Tests\EasyHealth.Tests.csproj", "{8B69459F-4DC6-4860-945C-A5DB22E6FB40}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyHealth.Api", "EasyHealth.Api\EasyHealth.Api.csproj", "{259F91AA-EABF-4F3E-B89A-2064172EE684}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{8B69459F-4DC6-4860-945C-A5DB22E6FB40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B69459F-4DC6-4860-945C-A5DB22E6FB40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B69459F-4DC6-4860-945C-A5DB22E6FB40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{259F91AA-EABF-4F3E-B89A-2064172EE684}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{259F91AA-EABF-4F3E-B89A-2064172EE684}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{259F91AA-EABF-4F3E-B89A-2064172EE684}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{259F91AA-EABF-4F3E-B89A-2064172EE684}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
