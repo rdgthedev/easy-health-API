@@ -20,4 +20,10 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EasyHealth.Domain\EasyHealth.Domain.csproj" />
+    <ProjectReference Include="..\EasyHealth.Application\EasyHealth.Application.csproj" />
+    <ProjectReference Include="..\EasyHealth.Infrastructure\EasyHealth.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
