@@ -1,4 +1,5 @@
-﻿using EasyHealth.Domain.Enums;
+﻿using System.Security.AccessControl;
+using EasyHealth.Domain.Enums;
 using EasyHealth.Domain.Exceptions;
 using EasyHealth.Domain.Shared;
 using EasyHealth.Domain.ValueObject;
@@ -23,7 +24,7 @@ public class Employee : BaseEntity
         Email = email;
         Sector = sector;
 
-        Roles.Add(role);
+        AddRole(role);
     }
 
     public string Name { get; private set; }
@@ -32,11 +33,12 @@ public class Employee : BaseEntity
     public Address Address { get; private set; }
     public Email Email { get; private set; }
     public string Sector { get; private set; }
-    public List<Role> Roles { get; private set; } = new();
+    public IReadOnlyCollection<Role> Roles => _roles.ToArray();
+    private IList<Role> _roles = null!;
 
-    public bool IsValid => Verify();
+    public bool IsValid => Validate();
 
-    private bool Verify()
+    private bool Validate()
     {
         if (string.IsNullOrEmpty(Name))
             return false;
@@ -68,10 +70,19 @@ public class Employee : BaseEntity
             throw new UnableToAddRoleException("O perfil não pode ser vázio!");
 
         var roleResult = Roles.Any(x => x.Name == role.Name);
-        
-        if(roleResult)
+
+        if (roleResult)
             throw new UnableToAddRoleException("O perfil já existe!");
-        
-        Roles.Add(role);
+
+        _roles.Add(role);
     }
+
+    public void UpdateEmail(Email email)
+        => Email = email ?? throw new UnableToChangeEmail();
+
+    public void UpdateAddress(Address address)
+        => Address = address ?? throw new UnableToChangeAddress();
+
+    public void UpdateSector(string sector)
+        => Sector = sector ?? throw new UnableToChangeSector();
 }
