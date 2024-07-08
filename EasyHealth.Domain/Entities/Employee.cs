@@ -1,5 +1,4 @@
-﻿using System.Security.AccessControl;
-using EasyHealth.Domain.Enums;
+﻿using EasyHealth.Domain.Enums;
 using EasyHealth.Domain.Exceptions;
 using EasyHealth.Domain.Shared;
 using EasyHealth.Domain.ValueObject;
