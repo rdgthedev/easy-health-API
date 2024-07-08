@@ -32,7 +32,7 @@ public class Doctor : BaseEntity
     public EGender EGender { get; private set; }
     public Address Address { get; private set; }
     public Email Email { get; private set; }
-    public Role Role { get; set; }
+    public Role Role { get; private set; }
     public List<Specialty> Specialties { get; private set; } = [];
     public Crm Crm { get; private set; }
 

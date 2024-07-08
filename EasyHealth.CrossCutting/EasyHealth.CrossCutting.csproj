@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\EasyHealth.Application\EasyHealth.Application.csproj" />
+    <ProjectReference Include="..\EasyHealth.Domain\EasyHealth.Domain.csproj" />
+    <ProjectReference Include="..\EasyHealth.Infrastructure\EasyHealth.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
