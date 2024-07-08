@@ -1,10 +1,10 @@
 ﻿namespace EasyHealth.Domain.Exceptions;
 
-public class UnableToChangeCrm : Exception
+public class UnableToChangeCrmException : Exception
 {
     private const string _message = "Não foi possível alterar o CRM!";
 
-    public UnableToChangeCrm(string message = _message) : base(message)
+    public UnableToChangeCrmException(string message = _message) : base(message)
     {
     }
 }

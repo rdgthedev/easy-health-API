@@ -53,8 +53,8 @@ public class Patient : BaseEntity
     }
 
     public void UpdateEmail(Email email)
-        => Email = email ?? throw new UnableToChangeEmail();
+        => Email = email ?? throw new UnableToChangeEmailException();
 
     public void UpdateAddress(Address address)
-        => Address = address ?? throw new UnableToChangeAddress();
+        => Address = address ?? throw new UnableToChangeAddressException();
 }

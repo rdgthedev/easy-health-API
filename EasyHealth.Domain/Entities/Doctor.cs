@@ -59,7 +59,7 @@ public class Doctor : BaseEntity
         if (specialty is null)
             Specialties.Add(specialtyEntity);
 
-        throw new UnableToAddSpeciality();
+        throw new UnableToAddSpecialityException();
     }
 
     public void RemoveSpecialty(Guid id)
@@ -73,11 +73,11 @@ public class Doctor : BaseEntity
     }
 
     public void UpdateCrm(Crm crm)
-        => Crm = crm ?? throw new UnableToChangeCrm();
+        => Crm = crm ?? throw new UnableToChangeCrmException();
 
     public void UpdateEmail(Email email)
-        => Email = email ?? throw new UnableToChangeEmail();
+        => Email = email ?? throw new UnableToChangeEmailException();
     
     public void UpdateAddress(Address address)
-        => Address = address ?? throw new UnableToChangeAddress();
+        => Address = address ?? throw new UnableToChangeAddressException();
 }

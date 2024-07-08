@@ -1,10 +1,10 @@
 ﻿namespace EasyHealth.Domain.Exceptions;
 
-public class UnableToChangeTitle : Exception
+public class UnableToChangeTitleException : Exception
 {
     private const string _message = "Não foi possível alterar o título!";
 
-    public UnableToChangeTitle(string message = _message) : base(message)
+    public UnableToChangeTitleException(string message = _message) : base(message)
     {
     }
 }
