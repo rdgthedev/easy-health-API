@@ -13,12 +13,12 @@ public class Category : BaseEntity
 
     public Category(string name)
     {
-        Title = name;
+        Name = name;
         CreateDate = DateTime.UtcNow;
         Status = ECategoryStatus.Active;
     }
 
-    public string Title { get; private set; }
+    public string Name { get; private set; }
     public DateTime CreateDate { get; private set; }
     public DateTime LastUpdateDate { get; private set; }
     public ECategoryStatus Status { get; private set; }
@@ -43,7 +43,7 @@ public class Category : BaseEntity
     }
 
     public void UpdateName(string name)
-        => Title = name ?? throw new DomainException("Não foi possível alterar o título!");
+        => Name = name ?? throw new DomainException("Não foi possível alterar o título!");
 
     public void UpdateStatus(ECategoryStatus status)
     {

@@ -11,7 +11,7 @@ public sealed class ExamValidator : AbstractValidator<Exam>
             .NotEmpty().WithMessage("O campo nome não pode ser vázio!");
 
         RuleFor(x => x.Description)
-            .NotEmpty().WithMessage("O campo description não pode ser vázio!");
+            .NotEmpty().WithMessage("O campo descrição não pode ser vázio!");
 
         RuleFor(x => x.Category).SetValidator(new CategoryValidator());
     }

@@ -7,8 +7,8 @@ public sealed class CategoryValidator : AbstractValidator<Category>
 {
     public CategoryValidator()
     {
-        RuleFor(x => x.Title)
-            .NotEmpty().WithMessage("O campo título não pode ser vázio!");
+        RuleFor(x => x.Name)
+            .NotEmpty().WithMessage("O campo nome não pode ser vázio!");
 
         RuleForEach(x => x.Exams)
             .SetValidator(new ExamValidator());
