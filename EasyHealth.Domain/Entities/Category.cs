@@ -1,7 +1,6 @@
 ﻿using EasyHealth.Domain.Enums;
 using EasyHealth.Domain.Exceptions;
 using EasyHealth.Domain.Shared;
-using EasyHealth.Domain.Validations;
 using EasyHealth.Domain.Validations.EntityValidators;
 
 namespace EasyHealth.Domain.Entities;
@@ -32,23 +31,29 @@ public class Category : BaseEntity
 
     public void AddExam(Exam exam)
     {
-        var result = _exams.Any(x => x.Name == exam.Name);
+        var validator = new ExamValidator();
+        var result = validator.Validate(exam);
 
-        if (!result)
-            throw new UnableToAddExamException();
+        if (!result.IsValid)
+            throw new DomainException("Exame inválido!", result.Errors);
+
+        var examExists = _exams.Any(x => x.Name == exam.Name);
+
+        if (examExists)
+            throw new DomainException("A categoria já possuí esse exame!");
 
         _exams.Add(exam);
     }
 
     public void UpdateName(string name)
-        => Title = name ?? throw new UnableToChangeNameException();
+        => Title = name ?? throw new DomainException("Não foi possível alterar o título!");
 
-    public void UpdateStatus(bool status)
+    public void UpdateStatus(ECategoryStatus status)
     {
-        if (!status)
-            Status = ECategoryStatus.Inactive;
-
-        Status = ECategoryStatus.Active;
+        if (Status.Equals(status))
+            throw new DomainException("Este é o status atual da categoria!");
+        
+        Status = status;
         LastUpdateDate = DateTime.UtcNow;
     }
 }
