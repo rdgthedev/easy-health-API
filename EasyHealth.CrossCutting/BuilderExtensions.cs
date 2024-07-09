@@ -1,11 +1,12 @@
 ﻿using EasyHealth.Infrastructure.Data;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EasyHealth.CrossCutting;
 
-public static class AddDbContextExtension
+public static class BuilderExtensions
 {
     public static void AddDbContextConfiguration(
         this IServiceCollection services,
@@ -16,5 +17,10 @@ public static class AddDbContextExtension
 
         services.AddDbContext<EasyHealthDbContext>(options
             => options.UseNpgsql(Configration.DefaultConnection));
+    }
+    public static void AddFluentValidationConfiguration(this IServiceCollection services)
+    {
+        var assembly = AppDomain.CurrentDomain.Load("EasyHealth.Domain");
+        services.AddValidatorsFromAssembly(assembly);
     }
 }

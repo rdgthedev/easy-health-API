@@ -15,39 +15,27 @@ public class Doctor : BaseEntity
         string name,
         DateTime birthDate,
         EGender gender,
-        Specialty specialty,
-        Crm crm)
+        Crm crm,
+        Specialty specialty)
     {
         Name = name;
         BirthDate = birthDate;
-        EGender = gender;
+        Gender = gender;
         Crm = crm;
-        Role = new Role(ERole.Doctor);
+        Role = new Role(ERole.Doctor.ToString());
 
         AddSpecialty(specialty);
     }
 
     public string Name { get; private set; }
     public DateTime BirthDate { get; private set; }
-    public EGender EGender { get; private set; }
+    public EGender Gender { get; private set; }
     public Address Address { get; private set; }
     public Email Email { get; private set; }
     public Role Role { get; private set; }
-    public List<Specialty> Specialties { get; private set; } = [];
+    public IReadOnlyCollection<Specialty> Specialties => _specialties.ToArray();
+    private IList<Specialty> _specialties = null!;
     public Crm Crm { get; private set; }
-
-    public bool IsValid => Validate();
-
-    private bool Validate()
-    {
-        if (string.IsNullOrEmpty(Name))
-            return false;
-
-        if (Specialties.Count == 0)
-            return false;
-
-        return true;
-    }
 
     public void AddSpecialty(Specialty specialtyEntity)
     {
@@ -56,10 +44,10 @@ public class Doctor : BaseEntity
         if (specialtyEntity.IsValid)
             specialty = Specialties.FirstOrDefault(x => x.Title == specialtyEntity.Title);
 
-        if (specialty is null)
-            Specialties.Add(specialtyEntity);
+        if (specialty is not null)
+            throw new UnableToAddSpecialityException();
 
-        throw new UnableToAddSpecialityException();
+        _specialties.Add(specialtyEntity);
     }
 
     public void RemoveSpecialty(Guid id)
@@ -69,15 +57,17 @@ public class Doctor : BaseEntity
         if (specialty is null)
             throw new SpecialtyNotFoundException();
 
-        Specialties.Remove(specialty);
+        _specialties.Remove(specialty);
     }
 
     public void UpdateCrm(Crm crm)
         => Crm = crm ?? throw new UnableToChangeCrmException();
 
+
     public void UpdateEmail(Email email)
         => Email = email ?? throw new UnableToChangeEmailException();
-    
+
+
     public void UpdateAddress(Address address)
         => Address = address ?? throw new UnableToChangeAddressException();
 }

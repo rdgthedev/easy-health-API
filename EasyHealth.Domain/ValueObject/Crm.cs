@@ -7,19 +7,19 @@ public class Crm : Shared.ValueObject
 {
     public Crm(
         int code,
-        EState eState)
+        EState state)
     {
         Code = code;
-        EState = eState;
+        State = state;
         InvalidCrmException.ThrowIfInvalid(Code);
     }
 
     public int Code { get; private set; }
-    public EState EState { get; private set; }
+    public EState State { get; private set; }
 
     public static implicit operator string(Crm crm)
         => crm.ToString();
 
     public override string ToString()
-        => $"{Code}/{EState}";
+        => $"{Code}/{State}";
 }

@@ -14,7 +14,7 @@ public class Employee : BaseEntity
         Address address,
         Email email,
         string sector,
-        ERole role)
+        string role)
     {
         Name = name;
         BirthDate = birthDate;
@@ -63,7 +63,7 @@ public class Employee : BaseEntity
         return true;
     }
 
-    public void AddRole(ERole role)
+    public void AddRole(string role)
     {
         if (role.ToString() is null)
             throw new UnableToAddRoleException("O perfil não pode ser vázio!");

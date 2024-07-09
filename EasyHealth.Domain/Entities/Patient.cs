@@ -23,7 +23,7 @@ public class Patient : BaseEntity
         Address = address;
         BirthDate = birthDate;
         EGender = gender;
-        Role = new Role(ERole.Patient);
+        Role = new Role(ERole.Patient.ToString());
     }
 
     public string Name { get; private set; }

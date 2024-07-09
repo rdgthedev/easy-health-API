@@ -8,6 +8,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContextConfiguration(builder.Configuration);
+builder.Services.AddFluentValidationConfiguration();
 
 var app = builder.Build();
 
