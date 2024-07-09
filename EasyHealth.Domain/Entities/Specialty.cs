@@ -24,7 +24,7 @@ public class Specialty : BaseEntity
 
     public void UpdateTitle(string title)
     {
-        Title = title ?? throw new UnableToChangeTitle();
+        Title = title ?? throw new UnableToChangeTitleException();
         LastUpdateDate = DateTime.UtcNow;
     }
 }
