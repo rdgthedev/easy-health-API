@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using EasyHealth.Domain.Enums;
+﻿using EasyHealth.Domain.Enums;
 using EasyHealth.Domain.Exceptions;
 using EasyHealth.Domain.Shared;
 using EasyHealth.Domain.Validations.EntityValidators;
@@ -29,8 +28,6 @@ public class Doctor : BaseEntity
         Email = email;
         Role = new Role(ERole.Doctor.ToString());
         AddSpecialty(specialty);
-
-        IsValid = new DoctorValidator().Validate(this).IsValid;
     }
 
     public string Name { get; private set; }
@@ -40,10 +37,9 @@ public class Doctor : BaseEntity
     public Email Email { get; private set; }
     public Role Role { get; private set; }
     public Crm Crm { get; private set; }
-    public bool IsValid { get; private set; }
+    public bool IsValid => new DoctorValidator().Validate(this).IsValid;
     public IReadOnlyCollection<Specialty> Specialties => _specialties.ToArray();
     private IList<Specialty> _specialties = null!;
-
 
     public void AddSpecialty(Specialty specialtyEntity)
     {
@@ -94,7 +90,7 @@ public class Doctor : BaseEntity
 
         Email = email;
     }
-    
+
     public void UpdateAddress(Address address)
     {
         var validator = new AddressValidator();

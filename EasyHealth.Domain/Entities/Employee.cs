@@ -1,12 +1,20 @@
 ﻿using EasyHealth.Domain.Enums;
 using EasyHealth.Domain.Exceptions;
 using EasyHealth.Domain.Shared;
+using EasyHealth.Domain.Validations.EntityValidators;
+using EasyHealth.Domain.Validations.ValueObjectsValidators;
 using EasyHealth.Domain.ValueObjects;
 
 namespace EasyHealth.Domain.Entities;
 
 public class Employee : BaseEntity
 {
+    private IList<Role> _roles = null!;
+
+    protected Employee()
+    {
+    }
+
     public Employee(
         string name,
         DateTime birthDate,
@@ -14,7 +22,7 @@ public class Employee : BaseEntity
         Address address,
         Email email,
         string sector,
-        string role)
+        Role role) : this()
     {
         Name = name;
         BirthDate = birthDate;
@@ -22,7 +30,7 @@ public class Employee : BaseEntity
         Address = address;
         Email = email;
         Sector = sector;
-
+        _roles = new List<Role>();
         AddRole(role);
     }
 
@@ -33,55 +41,51 @@ public class Employee : BaseEntity
     public Email Email { get; private set; }
     public string Sector { get; private set; }
     public IReadOnlyCollection<Role> Roles => _roles.ToArray();
-    private IList<Role> _roles = null!;
+    public bool IsValid => new EmployeeValidator().Validate(this).IsValid;
 
-    public bool IsValid => Validate();
-
-    private bool Validate()
+    public void AddRole(Role role)
     {
-        if (string.IsNullOrEmpty(Name))
-            return false;
+        var validator = new RoleValidator();
+        var result = validator.Validate(role);
 
-        if (Roles.Count == 0)
-            return false;
+        if (!result.IsValid)
+            throw new DomainException("Perfil inválido!", result.Errors);
 
-        if (string.IsNullOrEmpty(Gender.ToString()))
-            return false;
+        var roleExists = Roles.Any(x => x.Name == role.Name);
 
-        if (BirthDate <= DateTime.Now.AddYears(-18))
-            return false;
+        if (roleExists)
+            throw new DomainException("O perfil já existe!");
 
-        if (Address is null)
-            return false;
-
-        if (Email is null)
-            return false;
-
-        if (Sector is null)
-            return false;
-
-        return true;
-    }
-
-    public void AddRole(string role)
-    {
-        if (role.ToString() is null)
-            throw new UnableToAddRoleException("O perfil não pode ser vázio!");
-
-        var roleResult = Roles.Any(x => x.Name == role);
-
-        if (roleResult)
-            throw new UnableToAddRoleException("O perfil já existe!");
-
-        _roles.Add(new Role(role));
+        _roles.Add(role);
     }
 
     public void UpdateEmail(Email email)
-        => Email = email ?? throw new UnableToChangeEmailException();
+    {
+        var validator = new EmailValidator();
+        var result = validator.Validate(email);
+
+        if (!result.IsValid)
+            throw new DomainException("Não foi possível alterar o email!", result.Errors);
+
+        Email = email;
+    }
 
     public void UpdateAddress(Address address)
-        => Address = address ?? throw new UnableToChangeAddressException();
+    {
+        var validator = new AddressValidator();
+        var result = validator.Validate(address);
+
+        if (!result.IsValid)
+            throw new DomainException("Não foi possível alterar o endereço!", result.Errors);
+
+        Address = address;
+    }
 
     public void UpdateSector(string sector)
-        => Sector = sector ?? throw new UnableToChangeSectorException();
+    {
+        if (!string.IsNullOrEmpty(sector.Trim()))
+            throw new DomainException("O campo setor não pode ser vázio!");
+
+        Sector = sector;
+    }
 }

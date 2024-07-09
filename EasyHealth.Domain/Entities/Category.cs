@@ -16,18 +16,15 @@ public class Category : BaseEntity
         Title = name;
         CreateDate = DateTime.UtcNow;
         Status = ECategoryStatus.Active;
-
-        IsValid = new CategoryValidator().Validate(this).IsValid;
     }
 
     public string Title { get; private set; }
     public DateTime CreateDate { get; private set; }
     public DateTime LastUpdateDate { get; private set; }
     public ECategoryStatus Status { get; private set; }
-    public bool IsValid { get; private set; }
+    public bool IsValid => new CategoryValidator().Validate(this).IsValid;
     private IList<Exam> _exams = new List<Exam>();
     public IReadOnlyCollection<Exam> Exams => _exams.ToArray();
-
 
     public void AddExam(Exam exam)
     {
@@ -52,7 +49,7 @@ public class Category : BaseEntity
     {
         if (Status.Equals(status))
             throw new DomainException("Este é o status atual da categoria!");
-        
+
         Status = status;
         LastUpdateDate = DateTime.UtcNow;
     }
