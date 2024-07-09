@@ -13,19 +13,16 @@ public sealed class Exam : BaseEntity
     public Exam(
         string name,
         string description,
-        double price,
         Category category)
     {
         Name = name;
         Description = description;
-        Price = price;
-        Status = EExamStatus.Active;
         Category = category;
+        Status = EExamStatus.Active;
     }
 
     public string Name { get; private set; }
     public string Description { get; private set; }
-    public double Price { get; private set; }
     public Category Category { get; private set; }
     public EExamStatus Status { get; private set; }
 

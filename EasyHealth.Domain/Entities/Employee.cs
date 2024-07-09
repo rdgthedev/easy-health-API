@@ -10,7 +10,7 @@ public class Employee : BaseEntity
     public Employee(
         string name,
         DateTime birthDate,
-        EGender eGender,
+        EGender gender,
         Address address,
         Email email,
         string sector,
@@ -18,7 +18,7 @@ public class Employee : BaseEntity
     {
         Name = name;
         BirthDate = birthDate;
-        EGender = eGender;
+        Gender = gender;
         Address = address;
         Email = email;
         Sector = sector;
@@ -28,7 +28,7 @@ public class Employee : BaseEntity
 
     public string Name { get; private set; }
     public DateTime BirthDate { get; private set; }
-    public EGender EGender { get; private set; }
+    public EGender Gender { get; private set; }
     public Address Address { get; private set; }
     public Email Email { get; private set; }
     public string Sector { get; private set; }
@@ -45,7 +45,7 @@ public class Employee : BaseEntity
         if (Roles.Count == 0)
             return false;
 
-        if (string.IsNullOrEmpty(EGender.ToString()))
+        if (string.IsNullOrEmpty(Gender.ToString()))
             return false;
 
         if (BirthDate <= DateTime.Now.AddYears(-18))

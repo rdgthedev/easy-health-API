@@ -1,6 +1,8 @@
 ﻿using EasyHealth.Domain.Enums;
 using EasyHealth.Domain.Exceptions;
 using EasyHealth.Domain.Shared;
+using EasyHealth.Domain.Validations;
+using EasyHealth.Domain.Validations.EntityValidators;
 
 namespace EasyHealth.Domain.Entities;
 
@@ -10,20 +12,23 @@ public class Category : BaseEntity
     {
     }
 
-    public Category(
-        string name)
+    public Category(string name)
     {
         Title = name;
         CreateDate = DateTime.UtcNow;
         Status = ECategoryStatus.Active;
+
+        IsValid = new CategoryValidator().Validate(this).IsValid;
     }
 
     public string Title { get; private set; }
     public DateTime CreateDate { get; private set; }
     public DateTime LastUpdateDate { get; private set; }
     public ECategoryStatus Status { get; private set; }
+    public bool IsValid { get; private set; }
     private IList<Exam> _exams = new List<Exam>();
     public IReadOnlyCollection<Exam> Exams => _exams.ToArray();
+
 
     public void AddExam(Exam exam)
     {
