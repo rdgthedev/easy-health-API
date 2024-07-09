@@ -1,7 +1,7 @@
 ﻿using EasyHealth.Domain.Enums;
 using EasyHealth.Domain.Exceptions;
 using EasyHealth.Domain.Shared;
-using EasyHealth.Domain.ValueObject;
+using EasyHealth.Domain.ValueObjects;
 
 namespace EasyHealth.Domain.Entities;
 
@@ -63,10 +63,8 @@ public class Doctor : BaseEntity
     public void UpdateCrm(Crm crm)
         => Crm = crm ?? throw new UnableToChangeCrmException();
 
-
     public void UpdateEmail(Email email)
         => Email = email ?? throw new UnableToChangeEmailException();
-
 
     public void UpdateAddress(Address address)
         => Address = address ?? throw new UnableToChangeAddressException();

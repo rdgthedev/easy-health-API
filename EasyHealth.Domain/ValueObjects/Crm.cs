@@ -1,7 +1,7 @@
 ﻿using EasyHealth.Domain.Enums;
 using EasyHealth.Domain.Exceptions;
 
-namespace EasyHealth.Domain.ValueObject;
+namespace EasyHealth.Domain.ValueObjects;
 
 public class Crm : Shared.ValueObject
 {

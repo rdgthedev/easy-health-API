@@ -1,6 +1,6 @@
 ﻿using EasyHealth.Domain.Enums;
 
-namespace EasyHealth.Domain.ValueObject;
+namespace EasyHealth.Domain.ValueObjects;
 
 public class Address : Shared.ValueObject
 {

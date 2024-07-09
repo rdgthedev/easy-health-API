@@ -21,6 +21,9 @@ public class DoctorRepository : IDoctorRepository
     public async Task<Doctor?> GetByNameAsync(string name)
         => await _context.Doctors.AsNoTracking().FirstOrDefaultAsync(x => x.Name == name);
 
+    public async Task<Doctor?> GetByCrm(int code)
+        => await _context.Doctors.AsNoTracking().FirstOrDefaultAsync(x => x.Crm.Code == code);
+
     public async Task AddAsync(Doctor doctor)
         => await _context.AddAsync(doctor);
 

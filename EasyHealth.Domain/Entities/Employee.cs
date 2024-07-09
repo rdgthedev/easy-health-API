@@ -1,7 +1,7 @@
 ﻿using EasyHealth.Domain.Enums;
 using EasyHealth.Domain.Exceptions;
 using EasyHealth.Domain.Shared;
-using EasyHealth.Domain.ValueObject;
+using EasyHealth.Domain.ValueObjects;
 
 namespace EasyHealth.Domain.Entities;
 

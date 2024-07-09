@@ -1,4 +1,4 @@
-﻿namespace EasyHealth.Domain.ValueObject;
+﻿namespace EasyHealth.Domain.ValueObjects;
 
 public class Email : Shared.ValueObject
 {
