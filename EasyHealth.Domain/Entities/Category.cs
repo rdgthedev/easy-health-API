@@ -36,7 +36,7 @@ public class Category : BaseEntity
     }
 
     public void UpdateName(string name)
-        => Title = name ?? throw new UnableToChangeTitleException();
+        => Title = name ?? throw new UnableToChangeNameException();
 
     public void UpdateStatus(bool status)
     {
