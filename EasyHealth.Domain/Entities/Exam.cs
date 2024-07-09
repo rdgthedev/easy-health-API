@@ -19,13 +19,13 @@ public class Exam : BaseEntity
         Name = name;
         Description = description;
         Category = category;
-        Status = EExamStatus.Active;
+        EStatus = EStatus.Active;
     }
 
     public string Name { get; private set; }
     public string Description { get; private set; }
     public Category Category { get; private set; }
-    public EExamStatus Status { get; private set; }
+    public EStatus EStatus { get; private set; }
     public bool IsValid => new ExamValidator().Validate(this).IsValid;
 
     public void UpdateCategory(Category category)
@@ -54,11 +54,11 @@ public class Exam : BaseEntity
         Name = description;
     }
 
-    public void UpdateStatus(EExamStatus status)
+    public void UpdateStatus(EStatus status)
     {
-        if (Status == status)
-            throw new DomainException("O exame já se encontra neste status!");
+        if (EStatus == status)
+            throw new DomainException("O exame já se encontra neste eStatus!");
 
-        Status = status;
+        EStatus = status;
     }
 }

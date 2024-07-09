@@ -15,13 +15,13 @@ public class Category : BaseEntity
     {
         Name = name;
         CreateDate = DateTime.UtcNow;
-        Status = ECategoryStatus.Active;
+        Status = EStatus.Active;
     }
 
     public string Name { get; private set; }
     public DateTime CreateDate { get; private set; }
     public DateTime LastUpdateDate { get; private set; }
-    public ECategoryStatus Status { get; private set; }
+    public EStatus Status { get; private set; }
     public bool IsValid => new CategoryValidator().Validate(this).IsValid;
     private IList<Exam> _exams = new List<Exam>();
     public IReadOnlyCollection<Exam> Exams => _exams.ToArray();
@@ -45,10 +45,10 @@ public class Category : BaseEntity
     public void UpdateName(string name)
         => Name = name ?? throw new DomainException("Não foi possível alterar o título!");
 
-    public void UpdateStatus(ECategoryStatus status)
+    public void UpdateStatus(EStatus status)
     {
         if (Status.Equals(status))
-            throw new DomainException("Este é o status atual da categoria!");
+            throw new DomainException("Este é o eStatus atual da categoria!");
 
         Status = status;
         LastUpdateDate = DateTime.UtcNow;

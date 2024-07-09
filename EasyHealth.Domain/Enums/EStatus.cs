@@ -1,6 +1,6 @@
 ﻿namespace EasyHealth.Domain.Enums;
 
-public enum ECategoryStatus
+public enum EStatus
 {
     Active = 1,
     Inactive = 2

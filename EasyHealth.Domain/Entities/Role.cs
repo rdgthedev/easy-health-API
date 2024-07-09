@@ -1,5 +1,7 @@
 ﻿using EasyHealth.Domain.Enums;
+using EasyHealth.Domain.Exceptions;
 using EasyHealth.Domain.Shared;
+using EasyHealth.Domain.Validations.EntityValidators;
 
 namespace EasyHealth.Domain.Entities;
 
@@ -9,7 +11,23 @@ public class Role : BaseEntity
         => Name = name;
 
     public string Name { get; private set; }
+    public EStatus Status { get; private set; }
+    public bool IsValid => new RoleValidator().Validate(this).IsValid;
 
-    public bool IsValid => Validate();
-    private bool Validate() => !string.IsNullOrEmpty(Name);
+    public void UpdateName(string name)
+    {
+        if (!string.IsNullOrEmpty(name))
+            throw new DomainException("Não foi possível alterar o nome do perfil");
+
+        Name = name;
+    }
+
+    public void UpdateStatus(EStatus status)
+    {
+        if (Status.Equals(status))
+            throw new DomainException("Este é o eStatus atual da categoria!");
+
+        Status = status;
+        LastUpdateDate = DateTime.UtcNow;
+    }
 }
