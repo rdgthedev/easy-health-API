@@ -2,6 +2,7 @@
 using EasyHealth.Domain.Exceptions;
 using EasyHealth.Domain.Shared;
 using EasyHealth.Domain.Validations.EntityValidators;
+using EasyHealth.Domain.Validations.ValueObjectsValidators;
 using EasyHealth.Domain.ValueObjects;
 
 namespace EasyHealth.Domain.Entities;
@@ -36,9 +37,25 @@ public class Patient : BaseEntity
 
     public bool IsValid => new PatientValidator().Validate(this).IsValid;
 
-    public void UpdateEmail(Email email)
-        => Email = email ?? throw new UnableToChangeEmailException();
+    public void UpdateEmail(string email)
+    {
+        var validator = new EmailValidator();
+        var result = validator.Validate(email);
+
+        if (!result.IsValid)
+            throw new DomainException("Não foi possível alterar o email!", result.Errors);
+
+        Email = email;
+    }
 
     public void UpdateAddress(Address address)
-        => Address = address ?? throw new UnableToChangeAddressException();
+    {
+        var validator = new AddressValidator();
+        var result = validator.Validate(address);
+        
+        if (!result.IsValid)
+            throw new DomainException("Não foi possível alterar o endereço!", result.Errors);
+
+        Address = address;
+    }
 }
