@@ -19,8 +19,6 @@ public class Category : BaseEntity
     }
 
     public string Name { get; private set; }
-    public DateTime CreateDate { get; private set; }
-    public DateTime LastUpdateDate { get; private set; }
     public EStatus Status { get; private set; }
     public bool IsValid => new CategoryValidator().Validate(this).IsValid;
     private IList<Exam> _exams = new List<Exam>();
