@@ -22,6 +22,7 @@ public class Employee : BaseEntity
         Address address,
         Email email,
         string sector,
+        Document document,
         Role role)
     {
         Name = name;
@@ -30,6 +31,7 @@ public class Employee : BaseEntity
         Address = address;
         Email = email;
         Sector = sector;
+        Document = document;
         _roles = new List<Role>();
         AddRole(role);
     }
@@ -37,6 +39,7 @@ public class Employee : BaseEntity
     public string Name { get; private set; }
     public DateTime BirthDate { get; private set; }
     public EGender Gender { get; private set; }
+    public Document Document { get; private set; }
     public Address Address { get; private set; }
     public Email Email { get; private set; }
     public string Sector { get; private set; }

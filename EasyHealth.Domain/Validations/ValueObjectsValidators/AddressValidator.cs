@@ -11,13 +11,10 @@ public sealed class AddressValidator : AbstractValidator<Address>
             .NotEmpty().WithMessage("O campo rua não pode ser vázio!");
 
         RuleFor(x => x.Number)
-            .LessThanOrEqualTo(0).WithMessage("O campo número deve ser maior que zero!");
+            .GreaterThan(0).WithMessage("O campo número deve ser maior que zero!");
 
         RuleFor(x => x.Neighbordhood)
             .NotEmpty().WithMessage("O campo bairro não pode ser vázio!");
-
-        RuleFor(x => x.Complement)
-            .NotEmpty().WithMessage("O campo complemento não pode ser vázio!");
         
         RuleFor(x => x.City)
             .NotEmpty().WithMessage("O campo cidade não pode ser vázio!");

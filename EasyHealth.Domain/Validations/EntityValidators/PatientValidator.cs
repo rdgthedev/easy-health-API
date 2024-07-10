@@ -1,4 +1,5 @@
-﻿using EasyHealth.Domain.Entities;
+﻿using System.Reflection.Metadata;
+using EasyHealth.Domain.Entities;
 using EasyHealth.Domain.Enums;
 using EasyHealth.Domain.Validations.ValueObjectsValidators;
 using FluentValidation;
@@ -20,6 +21,7 @@ public class PatientValidator : AbstractValidator<Patient>
 
         RuleFor(x => x.Email).SetValidator(new EmailValidator());
         RuleFor(x => x.Address).SetValidator(new AddressValidator());
+        RuleFor(x => x.Document).SetValidator(new DocumentValidator());
     }
 
     private static bool GenderValidation(EGender gender)

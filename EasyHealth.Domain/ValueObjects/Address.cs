@@ -9,7 +9,8 @@ public class Address : Shared.ValueObject
         string neighbordhood,
         int number,
         string city,
-        EState state,
+        string state,
+        string zipCode,
         string? complement = null!)
     {
         Street = street;
@@ -18,12 +19,14 @@ public class Address : Shared.ValueObject
         Complement = complement;
         City = city;
         State = state;
+        ZipCode = zipCode;
     }
 
     public string Street { get; private set; }
     public string Neighbordhood { get; private set; }
     public int Number { get; private set; }
     public string? Complement { get; private set; }
+    public string ZipCode { get; private set; }
     public string City { get; private set; }
-    public EState State { get; private set; }
+    public string State { get; private set; }
 }

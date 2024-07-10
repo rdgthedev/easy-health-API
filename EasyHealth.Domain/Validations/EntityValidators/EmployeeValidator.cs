@@ -18,12 +18,13 @@ public class EmployeeValidator : AbstractValidator<Employee>
         RuleFor(x => x.BirthDate).Must(MinimumAgeVaidation);
         RuleFor(x => x.Email).SetValidator(new EmailValidator());
         RuleFor(x => x.Address).SetValidator(new AddressValidator());
-        
+        RuleFor(x => x.Document).SetValidator(new DocumentValidator());
+
         RuleForEach(x => x.Roles)
             .NotEmpty().WithMessage("O funcionário deve ter um perfil!")
             .SetValidator(new RoleValidator());
     }
-    
+
     private static bool GenderValidation(EGender gender)
     {
         return gender switch

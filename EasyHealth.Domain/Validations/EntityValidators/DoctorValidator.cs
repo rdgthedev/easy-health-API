@@ -1,4 +1,5 @@
-﻿using EasyHealth.Domain.Entities;
+﻿using System.Reflection.Metadata;
+using EasyHealth.Domain.Entities;
 using EasyHealth.Domain.Enums;
 using EasyHealth.Domain.Validations.ValueObjectsValidators;
 using FluentValidation;
@@ -18,6 +19,7 @@ public sealed class DoctorValidator : AbstractValidator<Doctor>
         RuleFor(x => x.Address).SetValidator(new AddressValidator());
         RuleFor(x => x.Crm).SetValidator(new CrmValidator());
         RuleFor(x => x.Role).SetValidator(new RoleValidator());
+        RuleFor(x => x.Document).SetValidator(new DocumentValidator());
         RuleForEach(x => x.Specialties)
             .NotEmpty().WithMessage("O médico deve ter no mínimo uma especialidade!")
             .SetValidator(new SpecialtyValidator());

@@ -17,6 +17,7 @@ public class Patient : BaseEntity
         string name,
         Email email,
         Address address,
+        Document document,
         DateTime birthDate,
         EGender gender)
     {
@@ -25,10 +26,12 @@ public class Patient : BaseEntity
         Address = address;
         BirthDate = birthDate;
         Gender = gender;
+        Document = document;
         Role = new Role(ERole.Patient.ToString());
     }
 
     public string Name { get; private set; }
+    public Document Document { get; private set; }
     public Email Email { get; private set; }
     public Address Address { get; private set; }
     public DateTime BirthDate { get; private set; }

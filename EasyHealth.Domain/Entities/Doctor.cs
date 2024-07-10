@@ -19,13 +19,15 @@ public class Doctor : BaseEntity
         EGender gender,
         Email email,
         Crm crm,
-        Specialty specialty)
+        Specialty specialty,
+        Document document)
     {
         Name = name;
         BirthDate = birthDate;
         Gender = gender;
         Crm = crm;
         Email = email;
+        Document = document;
         Role = new Role(ERole.Doctor.ToString());
         AddSpecialty(specialty);
     }
@@ -33,6 +35,7 @@ public class Doctor : BaseEntity
     public string Name { get; private set; }
     public DateTime BirthDate { get; private set; }
     public EGender Gender { get; private set; }
+    public Document Document { get; private set; }
     public Address Address { get; private set; }
     public Email Email { get; private set; }
     public Role Role { get; private set; }
