@@ -8,11 +8,9 @@ public sealed class CrmValidator : AbstractValidator<Crm>
     public CrmValidator()
     {
         RuleFor(x => x.Code)
-            .LessThan(6)
-            .GreaterThan(6)
-            .WithMessage("O código deve ter seis números!");
+            .Length(6).WithMessage("O código deve ter seis números!");
 
-        RuleFor(x => x.State.ToString())
+        RuleFor(x => x.State)
             .NotEmpty().WithMessage("O campo estado não pode ser vázio!")
             .Length(2, 2).WithMessage("O campo estado deve ter no mínimo dois caracteres!");
     }

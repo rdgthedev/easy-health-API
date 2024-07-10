@@ -10,12 +10,12 @@ public class AddessTests
     {
         //Arrange
         var address = new Address(
-            "a",
+            "",
             "jardim teste",
             1,
             "cidade",
             "SP",
-            null);
+            "");
         //Act
         var isValid = new AddressValidator().Validate(address).IsValid;
 
@@ -33,10 +33,10 @@ public class AddessTests
             1,
             "cidade",
             "SP",
-            "");
+            "12345678");
         //Act
         var isValid = new AddressValidator().Validate(address).IsValid;
-        
+
         // Assert
         Assert.True(isValid);
     }
