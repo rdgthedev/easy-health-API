@@ -1,11 +1,14 @@
-﻿namespace EasyHealth.Domain.Exceptions;
+﻿using EasyHealth.Domain.Shared;
+using FluentValidation.Results;
 
-public class UnableToAddRoleException : Exception
+namespace EasyHealth.Domain.Exceptions;
+
+public class UnableToAddRoleException : DomainException
 {
-    private const string _message = "Não foi possível adicionar o perfil!";
-    
-    public UnableToAddRoleException(string message = _message) : base(message)
+    public UnableToAddRoleException(string message) : base(message)
     {
-        
     }
+
+    public UnableToAddRoleException(string message, IList<ValidationFailure> errors) : base(message)
+        => errors.ToList().ForEach(error => Errors.Add(error.ErrorMessage));
 }

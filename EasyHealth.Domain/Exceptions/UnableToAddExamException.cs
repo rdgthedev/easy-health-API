@@ -1,10 +1,17 @@
-﻿namespace EasyHealth.Domain.Exceptions;
+﻿using EasyHealth.Domain.Shared;
+using FluentValidation.Results;
 
-public class UnableToAddExamException : Exception
+namespace EasyHealth.Domain.Exceptions;
+
+public class UnableToAddExamException : DomainException
 {
-    private const string _message = "Não foi possível adicionar um exame!";
+    public UnableToAddExamException(string message) : base(message)
+    {
+    }
 
-    public UnableToAddExamException(string message = _message) : base(message)
+    public UnableToAddExamException(
+        string message,
+        IList<ValidationFailure> errors) : base(message)
     {
     }
 }

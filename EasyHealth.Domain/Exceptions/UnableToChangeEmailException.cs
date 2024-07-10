@@ -1,10 +1,13 @@
-﻿namespace EasyHealth.Domain.Exceptions;
+﻿using EasyHealth.Domain.Shared;
+using FluentValidation.Results;
 
-public class UnableToChangeEmailException : Exception
+namespace EasyHealth.Domain.Exceptions;
+
+public class UnableToChangeEmailException : DomainException
 {
-    private const string _message = "Não foi possível alterar o email!";
-
-    public UnableToChangeEmailException(string message = _message) : base(message)
+    public UnableToChangeEmailException(
+        string message, 
+        IList<ValidationFailure> errors) : base(message)
     {
     }
 }

@@ -14,7 +14,6 @@ public class Category : BaseEntity
     public Category(string name)
     {
         Name = name;
-        CreateDate = DateTime.UtcNow;
         Status = EStatus.Active;
     }
 
@@ -30,23 +29,23 @@ public class Category : BaseEntity
         var result = validator.Validate(exam);
 
         if (!result.IsValid)
-            throw new DomainException("Exame inválido!", result.Errors);
+            throw new UnableToAddExamException("Exame inválido!", result.Errors);
 
         var examExists = _exams.Any(x => x.Name == exam.Name);
 
         if (examExists)
-            throw new DomainException("A categoria já possuí esse exame!");
+            throw new UnableToAddExamException("A categoria já possuí esse exame!");
 
         _exams.Add(exam);
     }
 
     public void UpdateName(string name)
-        => Name = name ?? throw new DomainException("Não foi possível alterar o título!");
+        => Name = name ?? throw new UnableToChangeNameException("Não foi possível alterar o título!");
 
     public void UpdateStatus(EStatus status)
     {
         if (Status.Equals(status))
-            throw new DomainException("Este é o eStatus atual da categoria!");
+            throw new UnableToChangeStatusException("Este é o status atual da categoria!");
 
         Status = status;
         LastUpdateDate = DateTime.UtcNow;

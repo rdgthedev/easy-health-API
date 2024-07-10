@@ -49,12 +49,12 @@ public class Doctor : BaseEntity
         var result = validator.Validate(specialtyEntity);
 
         if (!result.IsValid)
-            throw new DomainException(result.Errors);
+            throw new UnableToAddSpecialityException(result.Errors);
 
-        specialty = Specialties.FirstOrDefault(x => x.Title == specialtyEntity.Title);
+        specialty = Specialties.FirstOrDefault(x => x.Name == specialtyEntity.Name);
 
         if (specialty is not null)
-            throw new DomainException("O médico já possuí essa especialidade!");
+            throw new UnableToAddSpecialityException("O médico já possuí essa especialidade!");
 
         _specialties.Add(specialtyEntity);
     }
@@ -64,7 +64,7 @@ public class Doctor : BaseEntity
         var specialty = Specialties.FirstOrDefault(x => x.Id == id);
 
         if (specialty is null)
-            throw new DomainException("Especialidade não encontrada!");
+            throw new SpecialtyNotFoundException("Especialidade não encontrada!");
 
         _specialties.Remove(specialty);
     }
@@ -75,7 +75,7 @@ public class Doctor : BaseEntity
         var result = validator.Validate(crm);
 
         if (!result.IsValid)
-            throw new DomainException("Não foi possível alterar o CRM!", result.Errors);
+            throw new UnableToChangeCrmException("Não foi possível alterar o CRM!", result.Errors);
 
         Crm = crm;
     }
@@ -86,7 +86,7 @@ public class Doctor : BaseEntity
         var result = validator.Validate(email);
 
         if (!result.IsValid)
-            throw new DomainException("Não foi possível alterar o email!", result.Errors);
+            throw new UnableToChangeEmailException("Não foi possível alterar o email!", result.Errors);
 
         Email = email;
     }
@@ -97,7 +97,7 @@ public class Doctor : BaseEntity
         var result = validator.Validate(address);
 
         if (!result.IsValid)
-            throw new DomainException("Não foi possível alterar o endereço!", result.Errors);
+            throw new UnableToChangeAddressException("Não foi possível alterar o endereço!", result.Errors);
 
         Address = address;
     }

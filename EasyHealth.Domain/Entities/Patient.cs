@@ -43,7 +43,7 @@ public class Patient : BaseEntity
         var result = validator.Validate(email);
 
         if (!result.IsValid)
-            throw new DomainException("Não foi possível alterar o email!", result.Errors);
+            throw new UnableToChangeEmailException("Não foi possível alterar o email!", result.Errors);
 
         Email = email;
     }
@@ -54,7 +54,7 @@ public class Patient : BaseEntity
         var result = validator.Validate(address);
         
         if (!result.IsValid)
-            throw new DomainException("Não foi possível alterar o endereço!", result.Errors);
+            throw new UnableToChangeAddressException("Não foi possível alterar o endereço!", result.Errors);
 
         Address = address;
     }

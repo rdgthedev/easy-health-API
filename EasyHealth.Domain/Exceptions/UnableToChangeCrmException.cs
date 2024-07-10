@@ -1,10 +1,11 @@
-﻿namespace EasyHealth.Domain.Exceptions;
+﻿using EasyHealth.Domain.Shared;
+using FluentValidation.Results;
 
-public class UnableToChangeCrmException : Exception
+namespace EasyHealth.Domain.Exceptions;
+
+public class UnableToChangeCrmException : DomainException
 {
-    private const string _message = "Não foi possível alterar o CRM!";
-
-    public UnableToChangeCrmException(string message = _message) : base(message)
+    public UnableToChangeCrmException(string message, List<ValidationFailure> errors) : base(message)
     {
     }
 }

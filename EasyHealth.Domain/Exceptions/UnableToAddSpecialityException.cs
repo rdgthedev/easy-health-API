@@ -1,10 +1,15 @@
-﻿namespace EasyHealth.Domain.Exceptions;
+﻿using EasyHealth.Domain.Shared;
+using FluentValidation.Results;
 
-public class UnableToAddSpecialityException : Exception
+namespace EasyHealth.Domain.Exceptions;
+
+public class UnableToAddSpecialityException : DomainException
 {
-    private const string _message = "Não foi possível adicionar uma especialidade!";
+    public UnableToAddSpecialityException(string message) : base(message)
+    {
+    }
 
-    public UnableToAddSpecialityException(string message = _message) : base(message)
+    public UnableToAddSpecialityException(List<ValidationFailure> errors) : base(errors)
     {
     }
 }

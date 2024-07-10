@@ -7,7 +7,7 @@ public sealed class SpecialtyValidator : AbstractValidator<Specialty>
 {
     public SpecialtyValidator()
     {
-        RuleFor(x => x.Title)
+        RuleFor(x => x.Name)
             .NotEmpty().WithMessage("O título não pode ser vázio!");
     }
 }

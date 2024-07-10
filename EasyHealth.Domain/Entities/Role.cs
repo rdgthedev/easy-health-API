@@ -17,7 +17,7 @@ public class Role : BaseEntity
     public void UpdateName(string name)
     {
         if (!string.IsNullOrEmpty(name))
-            throw new DomainException("Não foi possível alterar o nome do perfil");
+            throw new UnableToChangeNameException("Não foi possível alterar o nome do perfil");
 
         Name = name;
     }
@@ -25,7 +25,7 @@ public class Role : BaseEntity
     public void UpdateStatus(EStatus status)
     {
         if (Status.Equals(status))
-            throw new DomainException("Este é o eStatus atual da categoria!");
+            throw new UnableToChangeStatusException("Este é o eStatus atual da categoria!");
 
         Status = status;
         LastUpdateDate = DateTime.UtcNow;

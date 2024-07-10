@@ -1,10 +1,10 @@
-﻿namespace EasyHealth.Domain.Exceptions;
+﻿using EasyHealth.Domain.Shared;
 
-public class UnableToChangeNameException : Exception
+namespace EasyHealth.Domain.Exceptions;
+
+public class UnableToChangeNameException : DomainException
 {
-    private const string _message = "Não foi possível alterar o nome!";
-
-    public UnableToChangeNameException(string message = _message) : base(message)
+    public UnableToChangeNameException(string message):base(message)
     {
     }
 }

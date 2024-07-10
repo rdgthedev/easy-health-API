@@ -22,7 +22,7 @@ public class Employee : BaseEntity
         Address address,
         Email email,
         string sector,
-        Role role) : this()
+        Role role)
     {
         Name = name;
         BirthDate = birthDate;
@@ -49,12 +49,12 @@ public class Employee : BaseEntity
         var result = validator.Validate(role);
 
         if (!result.IsValid)
-            throw new DomainException("Perfil inválido!", result.Errors);
+            throw new UnableToAddRoleException("Perfil inválido!", result.Errors);
 
         var roleExists = Roles.Any(x => x.Name == role.Name);
 
         if (roleExists)
-            throw new DomainException("O perfil já existe!");
+            throw new UnableToAddRoleException("O perfil já existe!");
 
         _roles.Add(role);
     }
@@ -65,7 +65,7 @@ public class Employee : BaseEntity
         var result = validator.Validate(email);
 
         if (!result.IsValid)
-            throw new DomainException("Não foi possível alterar o email!", result.Errors);
+            throw new UnableToChangeEmailException("Não foi possível alterar o email!", result.Errors);
 
         Email = email;
     }
@@ -76,7 +76,7 @@ public class Employee : BaseEntity
         var result = validator.Validate(address);
 
         if (!result.IsValid)
-            throw new DomainException("Não foi possível alterar o endereço!", result.Errors);
+            throw new UnableToChangeAddressException("Não foi possível alterar o endereço!", result.Errors);
 
         Address = address;
     }
@@ -84,7 +84,7 @@ public class Employee : BaseEntity
     public void UpdateSector(string sector)
     {
         if (!string.IsNullOrEmpty(sector.Trim()))
-            throw new DomainException("O campo setor não pode ser vázio!");
+            throw new UnableToChangeSectorException("O campo setor não pode ser vázio!");
 
         Sector = sector;
     }

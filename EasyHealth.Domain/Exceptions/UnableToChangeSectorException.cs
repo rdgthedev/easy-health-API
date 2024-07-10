@@ -1,10 +1,10 @@
-﻿namespace EasyHealth.Domain.Exceptions;
+﻿using EasyHealth.Domain.Shared;
 
-public class UnableToChangeSectorException : Exception
+namespace EasyHealth.Domain.Exceptions;
+
+public class UnableToChangeSectorException : DomainException
 {
-    private const string _message = "Não foi possível alterar o setor!";
-
-    public UnableToChangeSectorException(string message = _message) : base(message)
+    public UnableToChangeSectorException(string message) : base(message)
     {
     }
 }

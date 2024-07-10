@@ -34,14 +34,14 @@ public class Exam : BaseEntity
         var result = validator.Validate(category);
 
         if (!result.IsValid)
-            throw new DomainException("Não foi possível alterar a categoria", result.Errors);
+            throw new UnableToChangeCategoryException("Não foi possível alterar a categoria", result.Errors);
 
         Category = category;
     }
     public void UpdateName(string name)
     {
         if (!string.IsNullOrEmpty(name))
-            throw new DomainException("O campo nome não pode ser vázio!");
+            throw new UnableToChangeNameException("O campo nome não pode ser vázio!");
 
         Name = name;
     }
@@ -49,7 +49,7 @@ public class Exam : BaseEntity
     public void UpdateDescription(string description)
     {
         if (!string.IsNullOrEmpty(description))
-            throw new DomainException("O campo descrição não pode ser vázio!");
+            throw new UnableToChangeDescriptionException("O campo descrição não pode ser vázio!");
 
         Name = description;
     }
@@ -57,7 +57,7 @@ public class Exam : BaseEntity
     public void UpdateStatus(EStatus status)
     {
         if (Status.Equals(status))
-            throw new DomainException("O exame já se encontra neste eStatus!");
+            throw new UnableToChangeStatusException("O exame já se encontra neste eStatus!");
 
         Status = status;
     }

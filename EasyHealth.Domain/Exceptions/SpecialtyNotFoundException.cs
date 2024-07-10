@@ -1,10 +1,10 @@
-﻿namespace EasyHealth.Domain.Exceptions;
+﻿using EasyHealth.Domain.Shared;
 
-public class SpecialtyNotFoundException : Exception
+namespace EasyHealth.Domain.Exceptions;
+
+public class SpecialtyNotFoundException : DomainException
 {
-    private const string _message = "Especialidade não encontrada!";
-
-    public SpecialtyNotFoundException(string message = _message) : base(message)
+    public SpecialtyNotFoundException(string message) : base(message)
     {
     }
 }

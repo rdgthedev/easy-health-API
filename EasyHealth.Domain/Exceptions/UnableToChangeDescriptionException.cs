@@ -1,10 +1,10 @@
-﻿namespace EasyHealth.Domain.Exceptions;
+﻿using EasyHealth.Domain.Shared;
 
-public class UnableToChangeDescriptionException : Exception
+namespace EasyHealth.Domain.Exceptions;
+
+public class UnableToChangeDescriptionException : DomainException
 {
-    private const string _message = "Não foi possível alterar a descrição!";
-
-    public UnableToChangeDescriptionException(string message = _message) : base(message)
+    public UnableToChangeDescriptionException(string message) : base(message)
     {
     }
 }

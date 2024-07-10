@@ -1,14 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.InteropServices.JavaScript;
 using FluentValidation.Results;
 
-namespace EasyHealth.Domain.Exceptions;
+namespace EasyHealth.Domain.Shared;
 
-public sealed class DomainException : ValidationException
+public abstract class DomainException : ValidationException
 {
-    public List<string> Errors { get; private set; }
+    public List<string> Errors { get; protected set; }
 
-    private DomainException()
+    protected DomainException()
         => Errors = new List<string>();
 
     public DomainException(string message) : base(message)

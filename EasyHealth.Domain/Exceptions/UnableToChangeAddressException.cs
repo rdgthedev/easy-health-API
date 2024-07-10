@@ -1,10 +1,11 @@
-﻿namespace EasyHealth.Domain.Exceptions;
+﻿using EasyHealth.Domain.Shared;
+using FluentValidation.Results;
 
-public class UnableToChangeAddressException : Exception
+namespace EasyHealth.Domain.Exceptions;
+
+public class UnableToChangeAddressException : DomainException
 {
-    private const string _message = "Não foi possível alterar o endereço!";
-
-    public UnableToChangeAddressException(string message = _message) : base(message)
+    public UnableToChangeAddressException(string message, List<ValidationFailure> errors) : base(message)
     {
     }
 }

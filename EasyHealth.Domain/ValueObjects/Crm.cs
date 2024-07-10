@@ -11,7 +11,6 @@ public class Crm : Shared.ValueObject
     {
         Code = code;
         State = state;
-        InvalidCrmException.ThrowIfInvalid(Code);
     }
 
     public int Code { get; private set; }
