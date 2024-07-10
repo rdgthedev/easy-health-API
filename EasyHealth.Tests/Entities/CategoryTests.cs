@@ -1,8 +1,6 @@
 ﻿using EasyHealth.Domain.Entities;
 using EasyHealth.Domain.Enums;
 using EasyHealth.Domain.Exceptions;
-using NuGet.Frameworks;
-using Xunit.Abstractions;
 
 namespace EasyHealth.Tests.Entities;
 

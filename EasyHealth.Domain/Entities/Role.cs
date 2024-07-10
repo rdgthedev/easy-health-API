@@ -12,6 +12,9 @@ public class Role : BaseEntity
 
     public string Name { get; private set; }
     public EStatus Status { get; private set; }
+    public List<Employee> Employees { get; private set; }
+    public Doctor Doctor { get; private set; }
+    public Patient Patient { get; private set; }
     public bool IsValid => new RoleValidator().Validate(this).IsValid;
 
     public void UpdateName(string name)

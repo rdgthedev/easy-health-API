@@ -13,12 +13,10 @@ public class Exam : BaseEntity
 
     public Exam(
         string name,
-        string description,
-        Category category)
+        string description)
     {
         Name = name;
         Description = description;
-        Category = category;
         Status = EStatus.Active;
     }
 
@@ -28,22 +26,13 @@ public class Exam : BaseEntity
     public EStatus Status { get; private set; }
     public bool IsValid => new ExamValidator().Validate(this).IsValid;
 
-    public void UpdateCategory(Category category)
-    {
-        var validator = new CategoryValidator();
-        var result = validator.Validate(category);
-
-        if (!result.IsValid)
-            throw new UnableToChangeCategoryException("Não foi possível alterar a categoria", result.Errors);
-
-        Category = category;
-    }
     public void UpdateName(string name)
     {
         if (!string.IsNullOrEmpty(name))
             throw new UnableToChangeNameException("O campo nome não pode ser vázio!");
 
         Name = name;
+        LastUpdateDate = DateTime.UtcNow;
     }
 
     public void UpdateDescription(string description)
@@ -52,6 +41,7 @@ public class Exam : BaseEntity
             throw new UnableToChangeDescriptionException("O campo descrição não pode ser vázio!");
 
         Name = description;
+        LastUpdateDate = DateTime.UtcNow;
     }
 
     public void UpdateStatus(EStatus status)
@@ -60,5 +50,6 @@ public class Exam : BaseEntity
             throw new UnableToChangeStatusException("O exame já se encontra neste eStatus!");
 
         Status = status;
+        LastUpdateDate = DateTime.UtcNow;
     }
 }
