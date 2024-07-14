@@ -35,7 +35,7 @@ public class Employee : BaseEntity
         Sector = sector;
         Document = document;
         _roles = new List<Role>();
-        AddRole(role);
+        _roles.Add(role);
     }
 
     public Name Name { get; private set; }
@@ -58,8 +58,8 @@ public class Employee : BaseEntity
         Address address,
         string sector)
     {
-        Email = email;
-        Address = address;
-        Sector = sector;
+        Email = email ?? Email;
+        Address = address ?? Address;
+        Sector = sector ?? Sector;
     }
 }

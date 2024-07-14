@@ -18,12 +18,13 @@ public class Specialty : BaseEntity
     {
         Title = title;
         CreateDate = DateTime.UtcNow;
+        Status = EStatus.Active;
         _doctors = new List<Doctor>();
     }
 
     public Title Title { get; private set; }
     public EStatus Status { get; private set; }
-    public IReadOnlyCollection<Doctor> Doctors { get; private set; }
+    public IReadOnlyCollection<Doctor> Doctors => _doctors.ToArray();
 
     public ValidationResult Validate()
         => new SpecialtyValidator().Validate(this);

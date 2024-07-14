@@ -1,5 +1,4 @@
 ﻿using EasyHealth.Domain.Enums;
-using EasyHealth.Domain.Exceptions;
 using EasyHealth.Domain.Shared;
 using EasyHealth.Domain.Validations.EntityValidators;
 

@@ -1,8 +1,6 @@
 ﻿using EasyHealth.Domain.Enums;
-using EasyHealth.Domain.Exceptions;
 using EasyHealth.Domain.Shared;
 using EasyHealth.Domain.Validations.EntityValidators;
-using EasyHealth.Domain.Validations.ValueObjectsValidators;
 using EasyHealth.Domain.ValueObjects;
 using FluentValidation.Results;
 
@@ -10,6 +8,8 @@ namespace EasyHealth.Domain.Entities;
 
 public class Doctor : BaseEntity
 {
+    private IList<Specialty> _specialties = null!;
+
     protected Doctor()
     {
     }
@@ -30,7 +30,9 @@ public class Doctor : BaseEntity
         Email = email;
         Document = document;
         Role = new Role(ERole.Doctor.ToString());
-        AddSpecialty(specialty);
+
+        _specialties = new List<Specialty>();
+        _specialties.Add(specialty);
     }
 
     public Name Name { get; private set; }
@@ -42,7 +44,7 @@ public class Doctor : BaseEntity
     public Role Role { get; private set; }
     public Crm Crm { get; private set; }
     public IReadOnlyCollection<Specialty> Specialties => _specialties.ToArray();
-    private IList<Specialty> _specialties = null!;
+
 
     public ValidationResult Validate()
         => new DoctorValidator().Validate(this);
@@ -56,11 +58,10 @@ public class Doctor : BaseEntity
     public void Update(
         Crm crm,
         Email email,
-        Address address,
-        Document document)
+        Address address)
     {
-        Crm = crm;
-        Email = email;
-        Address = address;
+        Crm = crm ?? Crm;
+        Email = email ?? Email;
+        Address = address ?? Address;
     }
 }

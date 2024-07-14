@@ -8,6 +8,7 @@ public sealed class CrmValidator : AbstractValidator<Crm>
     public CrmValidator()
     {
         RuleFor(x => x.Code)
+            .NotEmpty().WithMessage("O CRM não pode ser vázio!")
             .Length(6).WithMessage("O código deve ter seis números!");
 
         RuleFor(x => x.State)

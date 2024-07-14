@@ -3,7 +3,7 @@ using EasyHealth.Domain.ValueObjects;
 
 namespace EasyHealth.Tests.ValueObjects;
 
-public class AddessTests
+public class AddressTests
 {
     [Fact]
     public void ShouldReturnErrorWhenAddressIsInvalid()
