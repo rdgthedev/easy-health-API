@@ -4,18 +4,18 @@ using FluentValidation;
 
 namespace EasyHealth.Domain.Validations.ValueObjectsValidators;
 
-public sealed partial class EmailValidator : AbstractValidator<Email>
+public sealed class EmailValidator : AbstractValidator<Email>
 {
-    private const string _pattern =
-        @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
-
     public EmailValidator()
     {
         RuleFor(x => x.Address)
-            .NotEmpty().WithMessage("O campo email não pode ser vázio!")
-            .Must(EmailRegex().IsMatch);
+            .NotEmpty().WithMessage("O e-mail não pode ser vázio!")
+            .EmailAddress()
+            .WithMessage("O e-mail está em um formato inválido!\nExemplo de e-mail válido Ola@exemplo.com");
     }
 
-    [GeneratedRegex(_pattern)]
-    private static partial Regex EmailRegex();
+    private bool NoWhiteSpace(string email)
+    {
+        return !email.Contains(" ");
+    }
 }

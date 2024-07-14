@@ -18,8 +18,8 @@ public class RoleRepository : IRoleRepository
     public async Task<Role?> GetByIdAsync(Guid id)
         => await _context.Roles.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
-    public async Task<Role?> GetByNameAsync(string name)
-        => await _context.Roles.AsNoTracking().FirstOrDefaultAsync(x => x.Name == name);
+    public async Task<Role?> GetByTitleAsync(string title)
+        => await _context.Roles.AsNoTracking().FirstOrDefaultAsync(x => x.Title.Text == title);
 
     public async Task AddAsync(Role role)
         => await _context.Roles.AddAsync(role);

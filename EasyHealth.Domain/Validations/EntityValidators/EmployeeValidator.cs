@@ -9,9 +9,7 @@ public class EmployeeValidator : AbstractValidator<Employee>
 {
     public EmployeeValidator()
     {
-        RuleFor(x => x.Name)
-            .NotEmpty().WithMessage("O campo nome não pode ser inválido!")
-            .Length(3, 60).WithMessage("O campo nome deve ter no mínimo 6 e no máximo 60 caracteres!");
+        RuleFor(x => x.Name).SetValidator(new NameValidator());
         RuleFor(x => x.Sector)
             .NotEmpty().WithMessage("O campo setor não pode ser vázio!");
         RuleFor(x => x.Gender).Must(GenderValidation);
@@ -19,7 +17,6 @@ public class EmployeeValidator : AbstractValidator<Employee>
         RuleFor(x => x.Email).SetValidator(new EmailValidator());
         RuleFor(x => x.Address).SetValidator(new AddressValidator());
         RuleFor(x => x.Document).SetValidator(new DocumentValidator());
-
         RuleForEach(x => x.Roles)
             .NotEmpty().WithMessage("O funcionário deve ter um perfil!")
             .SetValidator(new RoleValidator());

@@ -2,6 +2,5 @@
 
 public enum EDocumentType
 {
-    CPF,
-    CNPJ
+    CPF
 }

@@ -19,7 +19,7 @@ public class EmployeeRepository : IEmployeeRepository
         => await _context.Employees.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
     public async Task<Employee?> GetByNameAsync(string name)
-        => await _context.Employees.AsNoTracking().FirstOrDefaultAsync(x => x.Name == name);
+        => await _context.Employees.AsNoTracking().FirstOrDefaultAsync(x => x.Name.FirstName == name);
 
     public async Task AddAsync(Employee employee)
         => await _context.Employees.AddAsync(employee);

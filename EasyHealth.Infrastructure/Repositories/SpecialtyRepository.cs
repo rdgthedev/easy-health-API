@@ -18,8 +18,8 @@ public class SpecialtyRepository : ISpecialtyRepository
     public async Task<Specialty?> GetByIdAsync(Guid id)
         => await _context.Specialties.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
-    public async Task<Specialty?> GetByNameAsync(string name)
-        => await _context.Specialties.AsNoTracking().FirstOrDefaultAsync(x => x.Name == name);
+    public async Task<Specialty?> GetByNameAsync(string title)
+        => await _context.Specialties.AsNoTracking().FirstOrDefaultAsync(x => x.Title.Text == title);
 
     public async Task AddAsync(Specialty specialty)
         => await _context.Specialties.AddAsync(specialty);

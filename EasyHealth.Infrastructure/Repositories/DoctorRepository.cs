@@ -19,7 +19,7 @@ public class DoctorRepository : IDoctorRepository
         => await _context.Doctors.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
     public async Task<Doctor?> GetByNameAsync(string name)
-        => await _context.Doctors.AsNoTracking().FirstOrDefaultAsync(x => x.Name == name);
+        => await _context.Doctors.AsNoTracking().FirstOrDefaultAsync(x => x.Name.FirstName == name);
 
     public async Task<Doctor?> GetByCrmAsync(string code)
         => await _context.Doctors.AsNoTracking().FirstOrDefaultAsync(x => x.Crm.Code == code);

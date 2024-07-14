@@ -1,58 +1,67 @@
 ﻿using EasyHealth.Domain.Entities;
 using EasyHealth.Domain.Enums;
 using EasyHealth.Domain.Exceptions;
+using EasyHealth.Domain.ValueObjects;
 
 namespace EasyHealth.Tests.Entities;
 
 public class CategoryTests
 {
+    private string _firstExpectedMessage = string.Empty;
+    private string _secondExpectedMessage = string.Empty;
+    private string _thirdExpectedMessage = string.Empty;
+
     private readonly Category _category;
     private readonly Exam _exam;
+    private readonly Title _title;
 
     public CategoryTests()
     {
-        _category = new Category("teste");
-        _exam = new Exam("Usg", "Exame de Imagem");
+        _title = new Title("teste");
+        _category = new Category(_title);
+        _exam = new Exam(_title, "Exame de Imagem");
     }
 
     [Fact]
-    public void ShoudReturnErrorWhenNameIsInvalid()
+    public void ShoudReturnErrorWhenTitleIsInvalid()
     {
         //Arrange
-        var category = new Category(string.Empty);
+        var title = new Title(string.Empty);
+        var category = new Category(title);
 
-        //Act + Assert
-        Assert.False(category.IsValid);
+        //Act
+        var result = category.Validate();
+
+        // Assert
+        Assert.False(result.IsValid);
     }
 
     [Fact]
-    public void ShouldReturnSuccessWhenNameIsValid()
-        => Assert.True(_category.IsValid);
-
-
-    [Fact]
-    public void ShouldReturnErrorWhenInactive()
+    public void ShouldReturnSuccessWhenTitleIsValid()
     {
         //Act
-        _category.UpdateStatus(EStatus.Inactive);
+        var result = _category.Validate();
 
-        //Act + Assert
-        Assert.Equal(EStatus.Inactive, _category.Status);
+        //Assert
+        Assert.True(result.IsValid);
     }
 
     [Fact]
-    public void ShouldReturnSuccessWhenActive()
-        => Assert.Equal(EStatus.Active, _category.Status);
-
-    [Fact]
-    public void ShouldReturnUnableToAddExamExceptionWhenAddingInvalidExam()
+    public void ShouldReturnErrorWhenAddingInvalidExam()
     {
         //Arrange
-        var exam = new Exam("", "Exame de imagem");
+        var exam = new Exam(string.Empty, "Exame de imagem");
+        _firstExpectedMessage = "O exame adicionado, está inválido!";
 
-        //Act + Assert
-        var exception = Assert.Throws<UnableToAddExamException>(() => _category.AddExam(exam));
-        Assert.Equal("Exame inválido!", exception.Message);
+        //Act
+        _category.AddExam(exam);
+
+        var result = _category.Validate();
+
+        //Assert
+        Assert.False(result.IsValid);
+        Assert.Contains(result.Errors,
+            e => e.ErrorMessage.Equals(_firstExpectedMessage));
     }
 
     [Fact]
@@ -66,24 +75,28 @@ public class CategoryTests
     }
 
     [Fact]
-    public void ShouldReturnUnableToAddExamExceptionWhenExamExists()
+    public void ShouldReturnErrorWhenExamExists()
     {
         //Arrange
-        var exam2 = new Exam("Usg", "Exame de Imagem");
+        var exam2 = new Exam(_title, "Exame de Imagem");
+        _firstExpectedMessage = "Não são permitidos exames repetidos!";
 
         //Act
         _category.AddExam(_exam);
+        _category.AddExam(exam2);
+
+        var result = _category.Validate();
 
         //Assert
-        var exception = Assert.Throws<UnableToAddExamException>(() => _category.AddExam(exam2));
-        Assert.Equal("A categoria já possuí esse exame!", exception.Message);
+        Assert.False(result.IsValid);
+        Assert.Contains(result.Errors, e => e.ErrorMessage.Equals(_firstExpectedMessage));
     }
 
     [Fact]
     public void ShouldReturnSuccessWhenExamDoesNotExists()
     {
         //Arrange
-        var exam = new Exam("Exam", "Test");
+        var exam = new Exam("exam2", "Test");
 
         //Act
         _category.AddExam(_exam);
@@ -94,42 +107,35 @@ public class CategoryTests
     }
 
     [Fact]
-    public void ShouldReturnUnableToChangeNameExceptionWhenUpdateNameIsInvalid()
-    {
-        //Act + Assert
-        var exception = Assert.Throws<UnableToChangeNameException>(() => _category.UpdateName(""));
-        Assert.Equal("Não foi possível alterar o nome!", exception.Message);
-    }
-
-    [Fact]
-    public void ShouldReturnSuccessWhenUpdateNameIsValid()
+    public void ShouldReturnErrorWhenUpdateIsInvalid()
     {
         //Arrange
-        const string name = "teste";
+        var title = new Title(string.Empty);
+        _firstExpectedMessage = "O título não pode ser vazio!";
+        _secondExpectedMessage = "O título deve ter no mínimo três letras!";
 
         //Act
-        _category.UpdateName(name);
+        _category.Update(title, _exam.Status);
+        var result = _category.Validate();
 
         //Assert
-        Assert.Equal(name, _category.Name);
+        Assert.False(result.IsValid);
+        Assert.Contains(result.Errors,
+            e => e.ErrorMessage.Equals(_firstExpectedMessage)
+                 || e.ErrorMessage.Equals(_secondExpectedMessage));
     }
 
     [Fact]
-    public void ShouldReturnUnableToChangeStatusExceptionWhenUpdateStatusIsEqualToCurrent()
+    public void ShouldReturnSuccessWhenUpdateIsValid()
     {
-        //Act + Assert
-        var exception = Assert.Throws<UnableToChangeStatusException>(
-            () => _category.UpdateStatus(EStatus.Active));
-        Assert.Equal("Este é o status atual da categoria!", exception.Message);
-    }
+        //Arrange
+        var title = new Title("USG");
 
-    [Fact]
-    public void ShouldReturnUnableToChangeStatusExceptionWhenUpdateStatusIsNotEqualToCurrent()
-    {
         //Act
-        _category.UpdateStatus(EStatus.Inactive);
+        _category.Update(title, _category.Status);
+        var result = _category.Validate();
 
         //Assert
-        Assert.Equal(EStatus.Inactive, _category.Status);
+        Assert.True(result.IsValid);
     }
 }

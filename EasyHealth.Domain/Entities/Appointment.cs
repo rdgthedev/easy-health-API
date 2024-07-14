@@ -7,6 +7,10 @@ namespace EasyHealth.Domain.Entities;
 
 public class Appointment : BaseEntity
 {
+    protected Appointment()
+    {
+        
+    }
     public Appointment(
         Doctor doctor,
         Patient patient,
@@ -25,14 +29,10 @@ public class Appointment : BaseEntity
     public Exam Exam { get; private set; }
     public DateTime Date { get; private set; }
     public EAppointmentStatus Status { get; private set; }
-    public bool IsValid => new AppointmentValidator().Validate(this).IsValid;
-    
-    public void UpdateStatus(EAppointmentStatus status)
-    {
-        if (Status.Equals(status))
-            throw new UnableToChangeStatusException("O exame já se encontra neste eStatus!");
 
-        Status = status;
-        LastUpdateDate = DateTime.UtcNow;
-    }
+    public void Validate()
+        => new AppointmentValidator().Validate(this);
+
+    public void Update(EAppointmentStatus status)
+        => Status = status;
 }

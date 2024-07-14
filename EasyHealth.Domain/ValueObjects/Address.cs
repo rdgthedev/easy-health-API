@@ -1,4 +1,5 @@
-﻿using EasyHealth.Domain.Enums;
+﻿using EasyHealth.Domain.Validations.ValueObjectsValidators;
+using FluentValidation.Results;
 
 namespace EasyHealth.Domain.ValueObjects;
 
@@ -29,4 +30,7 @@ public class Address : Shared.ValueObject
     public string ZipCode { get; private set; }
     public string City { get; private set; }
     public string State { get; private set; }
+
+    public ValidationResult Validate()
+        => new AddressValidator().Validate(this);
 }

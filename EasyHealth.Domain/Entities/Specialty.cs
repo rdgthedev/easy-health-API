@@ -1,7 +1,8 @@
 ﻿using EasyHealth.Domain.Enums;
-using EasyHealth.Domain.Exceptions;
 using EasyHealth.Domain.Shared;
 using EasyHealth.Domain.Validations.EntityValidators;
+using EasyHealth.Domain.ValueObjects;
+using FluentValidation.Results;
 
 namespace EasyHealth.Domain.Entities;
 
@@ -13,47 +14,26 @@ public class Specialty : BaseEntity
     {
     }
 
-    public Specialty(string title)
+    public Specialty(Title title)
     {
-        Name = title;
+        Title = title;
         CreateDate = DateTime.UtcNow;
         _doctors = new List<Doctor>();
     }
 
-    public string Name { get; private set; }
+    public Title Title { get; private set; }
     public EStatus Status { get; private set; }
     public IReadOnlyCollection<Doctor> Doctors { get; private set; }
-    public bool IsValid => new SpecialtyValidator().Validate(this).IsValid;
+
+    public ValidationResult Validate()
+        => new SpecialtyValidator().Validate(this);
 
     public void AddDoctor(Doctor doctor)
+        => _doctors.Add(doctor);
+
+    public void Update(Title title, EStatus status)
     {
-        var validator = new DoctorValidator();
-        var result = validator.Validate(doctor);
-
-        if (!result.IsValid)
-            throw new UnableToAddDoctorException($"Não foi possível adicionar um médico a especialidade {Name}!",
-                result.Errors);
-
-        var doctorExists = Doctors.Any(x => x.Name == doctor.Name);
-
-        if (doctorExists)
-            throw new UnableToAddDoctorException("Médico já adicionado a esta especialidade anteriormente!");
-
-        _doctors.Add(doctor);
-    }
-
-    public void UpdateTitle(string title)
-    {
-        Name = title ?? throw new UnableToChangeNameException("O campo título não pode ser vázio!");
-        LastUpdateDate = DateTime.UtcNow;
-    }
-
-    public void UpdateStatus(EStatus status)
-    {
-        if (Status.Equals(status))
-            throw new UnableToChangeStatusException("Este é o status atual da especialidade!");
-
+        Title = title;
         Status = status;
-        LastUpdateDate = DateTime.UtcNow;
     }
 }

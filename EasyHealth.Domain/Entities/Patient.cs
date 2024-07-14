@@ -4,6 +4,7 @@ using EasyHealth.Domain.Shared;
 using EasyHealth.Domain.Validations.EntityValidators;
 using EasyHealth.Domain.Validations.ValueObjectsValidators;
 using EasyHealth.Domain.ValueObjects;
+using FluentValidation.Results;
 
 namespace EasyHealth.Domain.Entities;
 
@@ -14,7 +15,7 @@ public class Patient : BaseEntity
     }
 
     public Patient(
-        string name,
+        Name name,
         Email email,
         Address address,
         Document document,
@@ -30,7 +31,7 @@ public class Patient : BaseEntity
         Role = new Role(ERole.Patient.ToString());
     }
 
-    public string Name { get; private set; }
+    public Name Name { get; private set; }
     public Document Document { get; private set; }
     public Email Email { get; private set; }
     public Address Address { get; private set; }
@@ -38,27 +39,12 @@ public class Patient : BaseEntity
     public Role Role { get; private set; }
     public EGender Gender { get; private set; }
 
-    public bool IsValid => new PatientValidator().Validate(this).IsValid;
+    public ValidationResult Validate()
+        => new PatientValidator().Validate(this);
 
-    public void UpdateEmail(string email)
+    public void Update(Email email, Address adress)
     {
-        var validator = new EmailValidator();
-        var result = validator.Validate(email);
-
-        if (!result.IsValid)
-            throw new UnableToChangeEmailException("Não foi possível alterar o email!", result.Errors);
-
         Email = email;
-    }
-
-    public void UpdateAddress(Address address)
-    {
-        var validator = new AddressValidator();
-        var result = validator.Validate(address);
-        
-        if (!result.IsValid)
-            throw new UnableToChangeAddressException("Não foi possível alterar o endereço!", result.Errors);
-
-        Address = address;
+        Address = adress;
     }
 }

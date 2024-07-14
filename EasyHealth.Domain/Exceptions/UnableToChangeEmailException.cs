@@ -6,7 +6,7 @@ namespace EasyHealth.Domain.Exceptions;
 public class UnableToChangeEmailException : DomainException
 {
     public UnableToChangeEmailException(
-        string message, 
+        string message,
         IList<ValidationFailure> errors) : base(message)
     {
     }

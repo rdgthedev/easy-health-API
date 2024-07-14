@@ -1,17 +1,20 @@
 ﻿using EasyHealth.Domain.Enums;
+using EasyHealth.Domain.Shared;
+using EasyHealth.Domain.Validations.ValueObjectsValidators;
+using FluentValidation.Results;
 
 namespace EasyHealth.Domain.ValueObjects;
 
-public class Document
+public class Document : ValueObject
 {
-    public Document(
-        string code, 
-        string type)
+    public Document(string code)
     {
         Code = code;
-        Type = Enum.Parse<EDocumentType>(type, ignoreCase: true);
     }
 
     public string Code { get; private set; }
     public EDocumentType Type { get; private set; }
+
+    public ValidationResult Validate()
+        => new DocumentValidator().Validate(this);
 }

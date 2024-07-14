@@ -1,4 +1,7 @@
-﻿namespace EasyHealth.Domain.ValueObjects;
+﻿using EasyHealth.Domain.Validations.ValueObjectsValidators;
+using FluentValidation.Results;
+
+namespace EasyHealth.Domain.ValueObjects;
 
 public class Email : Shared.ValueObject
 {
@@ -11,6 +14,9 @@ public class Email : Shared.ValueObject
 
     public static implicit operator Email(string email)
         => new(email);
+
+    public ValidationResult Validate()
+        => new EmailValidator().Validate(this);
 
     public override string ToString()
         => Address;

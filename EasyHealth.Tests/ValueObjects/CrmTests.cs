@@ -1,7 +1,7 @@
 ﻿using EasyHealth.Domain.Validations.ValueObjectsValidators;
 using EasyHealth.Domain.ValueObjects;
 
-namespace EasyHealth.Tests.ValuObjects;
+namespace EasyHealth.Tests.ValueObjects;
 
 public class CrmTests
 {
