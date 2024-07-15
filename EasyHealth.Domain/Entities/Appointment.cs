@@ -1,6 +1,7 @@
 ﻿using EasyHealth.Domain.Enums;
 using EasyHealth.Domain.Shared;
 using EasyHealth.Domain.Validations.EntityValidators;
+using FluentValidation.Results;
 
 namespace EasyHealth.Domain.Entities;
 
@@ -8,8 +9,8 @@ public class Appointment : BaseEntity
 {
     protected Appointment()
     {
-        
     }
+
     public Appointment(
         Doctor doctor,
         Patient patient,
@@ -29,7 +30,7 @@ public class Appointment : BaseEntity
     public DateTime Date { get; private set; }
     public EAppointmentStatus Status { get; private set; }
 
-    public void Validate()
+    public ValidationResult Validate()
         => new AppointmentValidator().Validate(this);
 
     public void Update(EAppointmentStatus status)

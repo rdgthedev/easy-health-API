@@ -9,13 +9,14 @@ public class DoctorTests
     private string _firstExpectedMessage = string.Empty;
     private string _secondExpectedMessage = string.Empty;
 
-    private Name _name = null!;
-    private Email _email = null!;
-    private Crm _crm = null!;
-    private Document _document = null!;
-    private Doctor _doctor = null!;
-    private Title _title = null!;
-    private Specialty _specialty = null!;
+    private readonly Name _name = null!;
+    private readonly Email _email = null!;
+    private readonly Crm _crm = null!;
+    private readonly Document _document = null!;
+    private readonly Doctor _doctor = null!;
+    private readonly Title _title = null!;
+    private readonly Specialty _specialty = null!;
+    private readonly Address _address = null!;
 
     public DoctorTests()
     {
@@ -26,7 +27,16 @@ public class DoctorTests
         _crm = new Crm("123456", "SP");
         _title = new Title("teste");
         _specialty = new Specialty(_title);
-        _doctor = new Doctor(_name, DateTime.Now.AddYears(-18), EGender.Male, _email, _crm, _specialty, _document);
+        _address = new Address(
+            "teste",
+            "Jardim teste",
+            32,
+            "São Paulo",
+            "SP",
+            "12345678",
+            null);
+
+        _doctor = new Doctor(_name, DateTime.Now.AddYears(-18), EGender.Male, _address, _email, _crm, _specialty, _document);
     }
 
     [Fact]
@@ -41,7 +51,7 @@ public class DoctorTests
         var email = new Email("Rodrigo@gmail.com");
         var crm = new Crm("1234567", "SP");
         var document = new Document("456.969.960-00");
-        var doctor = new Doctor(name, birthDate, EGender.Male, email, crm, null!, document);
+        var doctor = new Doctor(name, birthDate, EGender.Male, _address, email, crm, null!, document);
 
         //Act
 
@@ -101,7 +111,7 @@ public class DoctorTests
         //Arrange
         _firstExpectedMessage = "O CRM não pode ser vázio!";
         _secondExpectedMessage = "O campo estado deve ter no mínimo dois caracteres!";
-        
+
         //Act
         _doctor.Update(new Crm("123456", ""), _doctor.Email, _doctor.Address);
         var result = _doctor.Validate();
@@ -119,7 +129,7 @@ public class DoctorTests
         //Act
         _doctor.Update(new Crm("123456", "SP"), _doctor.Email, _doctor.Address);
         var result = _doctor.Validate();
-        
+
         //Assert
         Assert.True(result.IsValid);
     }

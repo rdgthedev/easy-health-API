@@ -29,9 +29,6 @@ public class Specialty : BaseEntity
     public ValidationResult Validate()
         => new SpecialtyValidator().Validate(this);
 
-    public void AddDoctor(Doctor doctor)
-        => _doctors.Add(doctor);
-
     public void Update(Title title, EStatus status)
     {
         Title = title;

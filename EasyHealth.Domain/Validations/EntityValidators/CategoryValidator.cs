@@ -19,7 +19,8 @@ public sealed class CategoryValidator : AbstractValidator<Category>
             {
                 var examValidator = new ExamValidator();
                 return examValidator.Validate(exam).IsValid;
-            }).WithMessage("O exame adicionado, está inválido!");
+            }).WithMessage("O exame adicionado é inválido!");
+            
     }
 
     private bool ValidateExam(IReadOnlyCollection<Exam> exam)

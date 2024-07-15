@@ -1,8 +1,6 @@
 ﻿using EasyHealth.Domain.Enums;
-using EasyHealth.Domain.Exceptions;
 using EasyHealth.Domain.Shared;
 using EasyHealth.Domain.Validations.EntityValidators;
-using EasyHealth.Domain.Validations.ValueObjectsValidators;
 using EasyHealth.Domain.ValueObjects;
 using FluentValidation.Results;
 

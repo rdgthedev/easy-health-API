@@ -18,6 +18,7 @@ public class Doctor : BaseEntity
         Name name,
         DateTime birthDate,
         EGender gender,
+        Address address,
         Email email,
         Crm crm,
         Specialty specialty,
@@ -26,6 +27,7 @@ public class Doctor : BaseEntity
         Name = name;
         BirthDate = birthDate;
         Gender = gender;
+        Address = address;
         Crm = crm;
         Email = email;
         Document = document;

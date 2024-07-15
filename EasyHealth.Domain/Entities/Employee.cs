@@ -11,8 +11,6 @@ namespace EasyHealth.Domain.Entities;
 
 public class Employee : BaseEntity
 {
-    private IList<Role> _roles = null!;
-
     protected Employee()
     {
     }
@@ -34,8 +32,7 @@ public class Employee : BaseEntity
         Email = email;
         Sector = sector;
         Document = document;
-        _roles = new List<Role>();
-        _roles.Add(role);
+        Role = role;
     }
 
     public Name Name { get; private set; }
@@ -45,21 +42,20 @@ public class Employee : BaseEntity
     public Address Address { get; private set; }
     public Email Email { get; private set; }
     public string Sector { get; private set; }
-    public IReadOnlyCollection<Role> Roles => _roles.ToArray();
+    public Role Role { get; private set; }
 
     public ValidationResult Validate()
         => new EmployeeValidator().Validate(this);
 
-    public void AddRole(Role role)
-        => _roles.Add(role);
-
     public void Update(
         Email email,
         Address address,
-        string sector)
+        string sector,
+        Role role)
     {
-        Email = email ?? Email;
-        Address = address ?? Address;
-        Sector = sector ?? Sector;
+        Email = email;
+        Address = address;
+        Sector = sector;
+        Role = role;
     }
 }

@@ -51,7 +51,7 @@ public class CategoryTests
     {
         //Arrange
         var exam = new Exam(string.Empty, "Exame de imagem");
-        _firstExpectedMessage = "O exame adicionado, está inválido!";
+        _firstExpectedMessage = "O exame adicionado é inválido!";
 
         //Act
         _category.AddExam(exam);
