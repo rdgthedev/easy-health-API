@@ -10,7 +10,7 @@ O projeto está organizado em várias camadas para garantir a separação de res
 2. **Application**: Inclui casos de uso, manipuladores de comandos/consultas, e validações.
 3. **Infrastructure**: Implementações de acesso a dados, configurações de banco de dados e integrações com serviços externos.
 4. **Cross Cutting**: Componentes e serviços transversais como log, autenticação e injeção de dependências.
-5. **Tests**: Testes unitários e de integração para garantir a qualidade do código.
+5. **Tests**: Testes unitários para garantir a qualidade do código.
 6. **API**: Exposição de endpoints para interação com o sistema.
 
 ## 🛠️ Tecnologias Utilizadas
